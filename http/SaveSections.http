@@ -1,0 +1,65 @@
+POST http://localhost:3000/api/v1/sections/save_multiple HTTP/1.1
+content-type: application/json
+
+{"targetrecord":[
+  {
+    "id": 1,
+    "name": "Section New Name 1",
+    "sort_number": 1,
+    "recipe_id": 1,
+    "created_at": "2022-02-08T04:57:37.545Z",
+    "updated_at": "2022-02-08T04:57:37.545Z",
+    "steps": [
+      {
+        "id": 2,
+        "description": "This is the description fo the step 1 section 1",
+        "step_number": 1,
+        "section_id": 1,
+        "recipe_id": 1,
+        "created_at": "2022-02-08T04:58:54.706Z",
+        "updated_at": "2022-02-08T04:58:54.706Z"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Test section New Name of 3",
+    "sort_number": 1,
+    "recipe_id": 1,
+    "created_at": "2022-02-18T01:34:29.762Z",
+    "updated_at": "2022-02-18T01:34:29.762Z",
+    "steps": [
+      {
+        "id": 3,
+        "description": "Description of step 1 section 3",
+        "step_number": 1,
+        "section_id": 3,
+        "recipe_id": 1,
+        "created_at": "2022-02-18T01:38:26.588Z",
+        "updated_at": "2022-02-18T01:38:26.588Z"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Test section 4",
+    "sort_number": 1,
+    "recipe_id": 1
+  },
+  {
+    "name": "Test section 5",
+    "sort_number": 1,
+    "recipe_id": 1,
+    "steps": [
+      {
+        "description": "Description of section 5 step 1",
+        "step_number": 1,
+        "section_id": 3,
+        "recipe_id": 1,
+        "created_at": "2022-02-18T01:38:26.588Z",
+        "updated_at": "2022-02-18T01:38:26.588Z"
+      }
+    ]
+  }
+]
+}
