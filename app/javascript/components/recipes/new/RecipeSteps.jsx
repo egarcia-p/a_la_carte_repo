@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import Section from "./Section";
+import Section from './Section'
 
 // stripHtmlEntities(str) {
 //   return String(str).replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -10,10 +10,10 @@ import Section from "./Section";
 //   this.setState({ [event.target.name]: event.target.value });
 // }
 
-function RecipeSteps(props) {
+function RecipeSteps() {
   let params = useParams();
   const history = useHistory();
-  const [sections, setSections] = useState([
+  const [sectionsMap, setSectionsMap] = useState(new Map()
     //Example of json state for sections
     // {
     //   index: 1,
@@ -27,7 +27,7 @@ function RecipeSteps(props) {
     //   name: "Section Test 1",
     //   steps: [],
     // },
-  ]);
+  );
 
   useEffect(() => {
     Promise.all([
@@ -39,7 +39,10 @@ function RecipeSteps(props) {
       })
       .then(([res1]) => {
         console.log(res1);
-        setSections(res1);
+        const newMap = new Map();
+        Array.from(res1).map((row, index) => newMap.set(index, row))
+        console.log(newMap)
+        setSectionsMap(newMap);
       });
   }, []);
 
@@ -49,20 +52,20 @@ function RecipeSteps(props) {
   };
 
   function onNewSectionClick() {
-    const newSection = {
-      index: sections.length + 1,
-      id: "",
-      name: "Insert Name",
-      steps: [],
-    };
-    setSections([...sections, newSection]);
+    // const newSection = {
+    //   index: sections.length + 1,
+    //   id: "",
+    //   name: "Insert Name",
+    //   steps: [],
+    // };
+    // setSections([...sections, newSection]);
   }
 
   function onSubmit(e) {
     e.preventDefault();
     
 
-    var target = { targetrecord: sections };
+    var target = { targetrecord: sectionsMap };
     console.log({
       target,
     });
@@ -91,7 +94,8 @@ function RecipeSteps(props) {
       })
       .catch((error) => console.log(error.message));
   }
-
+  console.log(sectionsMap.keys)
+  console.log(Object.keys(sectionsMap));
   return (
     <div className="container mt-5">
       <div className="row">
@@ -101,14 +105,16 @@ function RecipeSteps(props) {
           </h1>
           <AddSectionButton />
           <form onSubmit={onSubmit}>
-            {sections.map((section, index) => (
-              <Section
-                key={index}
-                section={section}
-                sections={sections}
-                setSections={setSections}
-              ></Section>
-            ))}
+            {Object.keys(sectionsMap).map((keyName,i) => {
+              console.log(keyName);
+              console.log(i);
+              // <Section
+              //   key={i}
+              //   section={sectionsMap[keyName]}
+              //   sectionsMap={sectionsMap}
+              //   setSectionsMap={setSectionsMap}
+              // ></Section>
+            })}
 
             <button type="submit">Save form</button>
           </form>

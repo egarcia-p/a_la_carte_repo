@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Step from "./Step";
+//import Step from "./Step";
 import PropTypes from "prop-types";
 
 const SectionNameInput = (props) => {
@@ -19,7 +19,7 @@ const SectionNameInput = (props) => {
 
 const Section = (props) => {
   const section = props.section;
-  const setSections = props.setSections;
+  const setSectionsMap = props.setSectionsMap;
   //const sections = props.sections;
   //const nameRef = useRef();
   const [name, setName] = useState(section.name);
@@ -30,24 +30,24 @@ const Section = (props) => {
   };
 
   function onNewStepClick() {
-    const newStep = {
-      description: "Fill Description",
-      step_number: section.steps.length + 1,
-    };
+    // const newStep = {
+    //   description: "Fill Description",
+    //   step_number: section.steps.length + 1,
+    // };
 
-    setSections(
-      props.sections.map((current) => {
-        if (current.id !== section.id) return current;
-        return { ...current, steps: [...current.steps, newStep] };
-      })
-    );
+    // setSectionsMap(
+    //   props.sectionsMap.map((current) => {
+    //     if (current.id !== section.id) return current;
+    //     return { ...current, steps: [...current.steps, newStep] };
+    //   })
+    // );
   }
 
   const updateValue = (e) => {
     const value = e.target.value;
     setName(value);
     //nameRef.current.defaultValue = value;
-    const sectionsCopy = [...props.sections]; // Get a copy of the sections array
+    const sectionsCopy = [...props.sectionsMap]; // Get a copy of the sections array
     console.log(sectionsCopy);
     // Replace the current section item
     const indexToReplace = sectionsCopy.findIndex(object => {
@@ -65,10 +65,10 @@ const Section = (props) => {
     });
     
     // Update the parent state
-    setSections(sectionsCopy);
+    setSectionsMap(sectionsCopy);
   };
 
- 
+ console.log(section)
 
   return (
     <div className="section">
@@ -79,9 +79,9 @@ const Section = (props) => {
 
       <AddStepButton />
       <div className="steps">
-        {section.steps.map((step, index) => (
-          <Step key={index} step={step} section={section} sections={props.sections} setSections={setSections}></Step>
-        ))}
+        {/* {section.steps.map((step, index) => (
+          <Step key={index} step={step} section={section} sections={props.sectionsMap} setSections={setSectionsMap}></Step>
+        ))} */}
       </div>
     </div>
   );
@@ -89,9 +89,11 @@ const Section = (props) => {
 
 Section.propTypes = {
   section: PropTypes.object,
-  sections: PropTypes.array,
-  setSections: PropTypes.func,
-  key: PropTypes.number,
+  sectionsMap: PropTypes.shape({
+    k0: PropTypes.arrayOf(PropTypes.number),
+    k1: PropTypes.arrayOf(PropTypes.string)
+  }),
+  setSectionsMap: PropTypes.func,
 };
 
 SectionNameInput.propTypes = {
