@@ -11,7 +11,7 @@ const SectionNameInput = (props) => {
       value={props.name}
       className="form-control"
       required
-      onChange={props.updateValue}
+      onChange={props.updateName}
     />
   );
 };
@@ -20,6 +20,7 @@ const SectionNameInput = (props) => {
 
 const Section = (props) => {
   const section = props.section;
+  const sectionIndex = props.sectionIndex;
   const setSectionsMap = props.setSectionsMap;
   //const sections = props.sections;
   //const nameRef = useRef();
@@ -44,29 +45,30 @@ const Section = (props) => {
     // );
   }
 
-  const updateValue = (e) => {
+  const updateName = (e) => {
     const value = e.target.value;
     setName(value);
-    //nameRef.current.defaultValue = value;
-    const sectionsCopy = [...props.sectionsMap]; // Get a copy of the sections array
-    console.log(sectionsCopy);
+
+    const sectionsMapCopy = new Map(props.sectionsMap); // Get a copy of the sections array
+    //console.log(sectionsMapCopy);
     // Replace the current section item
-    const indexToReplace = sectionsCopy.findIndex(object => {
-      return object.id === section.id; //TODO fix for new sections, how does that work?
-    });
-    console.log(indexToReplace);
-    sectionsCopy.splice(indexToReplace, 1, {
+    // const indexToReplace = sectionsMapCopy.findIndex(object => {
+    //   return object.id === section.id; //TODO fix for new sections, how does that work?
+    // });
+
+    const newSection = {
       id: section.id,
       index: section.index,
       name: value,
       recipe_id: section.recipe_id,
       sort_number: section.sort_number,
       steps: section.steps,
-      
-    });
+    }
+
+    sectionsMapCopy.set(sectionIndex,newSection)
     
     // Update the parent state
-    setSectionsMap(sectionsCopy);
+    setSectionsMap(sectionsMapCopy);
   };
 
  console.log(section)
@@ -75,7 +77,7 @@ const Section = (props) => {
     <div className="section">
       <h2>Section Id: {section.id}</h2>
       <h1>
-        Section Name: <SectionNameInput name={name} updateValue={updateValue} />
+        Section Name: <SectionNameInput name={name} updateName={updateName} />
       </h1>
       
 
@@ -91,6 +93,7 @@ const Section = (props) => {
 
 Section.propTypes = {
   section: PropTypes.object,
+  sectionIndex: PropTypes.number,
   sectionsMap: PropTypes.shape({
     k0: PropTypes.arrayOf(PropTypes.number),
     k1: PropTypes.arrayOf(PropTypes.string)
@@ -100,7 +103,7 @@ Section.propTypes = {
 
 SectionNameInput.propTypes = {
   name: PropTypes.string,
-  updateValue: PropTypes.func,
+  updateName: PropTypes.func,
 }
 
 export default Section;

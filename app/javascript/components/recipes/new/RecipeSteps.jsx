@@ -111,6 +111,7 @@ function RecipeSteps() {
               <Section
                 key={i}
                 section={section}
+                sectionIndex={i}
                 sectionsMap={sectionsMap}
                 setSectionsMap={setSectionsMap}
               ></Section>
