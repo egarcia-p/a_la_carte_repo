@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 //import Step from "./Step";
 import PropTypes from "prop-types";
+import Step from "./Step";
 
 const SectionNameInput = (props) => {
   return (
@@ -72,16 +73,17 @@ const Section = (props) => {
 
   return (
     <div className="section">
+      <h2>Section Id: {section.id}</h2>
       <h1>
         Section Name: <SectionNameInput name={name} updateValue={updateValue} />
       </h1>
-      <h2>Section Id: {section.id}</h2>
+      
 
       <AddStepButton />
       <div className="steps">
-        {/* {section.steps.map((step, index) => (
-          <Step key={index} step={step} section={section} sections={props.sectionsMap} setSections={setSectionsMap}></Step>
-        ))} */}
+        {section.steps.map((step, index) => (
+          <Step key={index} step={step} section={section} sectionsMap={props.sectionsMap} setSectionsMap={setSectionsMap}></Step>
+        ))}
       </div>
     </div>
   );

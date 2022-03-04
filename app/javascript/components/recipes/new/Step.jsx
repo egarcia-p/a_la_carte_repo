@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 const Step = (props) => {
   const step = props.step;
   const section = props.section;
-  const setSections = props.setSections;
+  const setSectionsMap = props.setSectionsMap;
   const [stepNumber, setStepNumber] = useState(step.step_number);
   //const [description, setDescription] = useState(step.description);
 
   const updateValueStepNumber = (e) => {
     const value = e.target.value;
     setStepNumber(value);
-    const sectionsCopy = [...props.sections]; // Get a copy of the sections array
+    const sectionsCopy = [...props.sectionsMap]; // Get a copy of the sections array
     const stepsCopy = [...section.steps];
     console.log(stepsCopy);
     const indexToReplaceStep = section.steps.findIndex((object) => {
@@ -40,7 +40,7 @@ const Step = (props) => {
     });
 
     // Update the parent state
-    setSections(sectionsCopy);
+    setSectionsMap(sectionsCopy);
   };
 
   //TODO Make steps editable
@@ -74,8 +74,11 @@ const Step = (props) => {
 Step.propTypes = {
   step: PropTypes.object,
   section: PropTypes.object,
-  sections: PropTypes.array,
-  setSections: PropTypes.func,
+  sectionsMap: PropTypes.shape({
+    k0: PropTypes.arrayOf(PropTypes.number),
+    k1: PropTypes.arrayOf(PropTypes.string)
+  }),
+  setSectionsMap: PropTypes.func,
 };
 
 export default Step;

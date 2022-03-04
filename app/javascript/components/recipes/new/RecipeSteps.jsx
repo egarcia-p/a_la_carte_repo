@@ -105,16 +105,14 @@ function RecipeSteps() {
           </h1>
           <AddSectionButton />
           <form onSubmit={onSubmit}>
-            {Object.keys(sectionsMap).map((keyName,i) => {
-              console.log(keyName);
-              console.log(i);
-              // <Section
-              //   key={i}
-              //   section={sectionsMap[keyName]}
-              //   sectionsMap={sectionsMap}
-              //   setSectionsMap={setSectionsMap}
-              // ></Section>
-            })}
+            {Array.from(sectionsMap.values()).map((section,i) => (
+              <Section
+                key={i}
+                section={section}
+                sectionsMap={sectionsMap}
+                setSectionsMap={setSectionsMap}
+              ></Section>
+            ))}
 
             <button type="submit">Save form</button>
           </form>
