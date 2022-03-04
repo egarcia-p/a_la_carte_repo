@@ -4,20 +4,22 @@ import PropTypes from "prop-types";
 const Step = (props) => {
   const step = props.step;
   const section = props.section;
+  const sectionIndex = props.sectionIndex;
+  const stepIndex = props.stepIndex;
   const setSectionsMap = props.setSectionsMap;
   const [stepNumber, setStepNumber] = useState(step.step_number);
-  //const [description, setDescription] = useState(step.description);
+  const [description, setDescription] = useState(step.description);
 
   const updateValueStepNumber = (e) => {
     const value = e.target.value;
     setStepNumber(value);
-    const sectionsCopy = [...props.sectionsMap]; // Get a copy of the sections array
+
+    //Replace section steps
+    const sectionsMapCopy = new Map(props.sectionsMap); // Get a copy of the sections array
+
     const stepsCopy = [...section.steps];
-    console.log(stepsCopy);
-    const indexToReplaceStep = section.steps.findIndex((object) => {
-      return object.step_number === step.step_number; //TODO check if this works when step is changed issue is that when steps are duplicate it changes both
-    });
-    stepsCopy.splice(indexToReplaceStep, 1, {
+
+    stepsCopy.splice(stepIndex, 1, {
       id: step.id,
       recipe_id: step.recipe_id,
       section_id: step.section_id,
@@ -26,13 +28,8 @@ const Step = (props) => {
     });
 
     // Replace the current section item
-    const indexToReplace = sectionsCopy.findIndex((object) => {
-      return object.id === section.id; //TODO check how to work with mulitple new sections
-    });
-    console.log(indexToReplace);
-    sectionsCopy.splice(indexToReplace, 1, {
+    sectionsMapCopy.set(sectionIndex, {
       id: section.id,
-      index: section.index,
       name: section.name,
       recipe_id: section.recipe_id,
       sort_number: section.sort_number,
@@ -40,10 +37,39 @@ const Step = (props) => {
     });
 
     // Update the parent state
-    setSectionsMap(sectionsCopy);
+    setSectionsMap(sectionsMapCopy);
   };
 
-  //TODO Make steps editable
+  const updateValueDescription = (e) => {
+    const value = e.target.value;
+    setDescription(value);
+
+    //Replace section steps
+    const sectionsMapCopy = new Map(props.sectionsMap); // Get a copy of the sections map
+
+    const stepsCopy = [...section.steps];
+
+    stepsCopy.splice(stepIndex, 1, {
+      id: step.id,
+      recipe_id: step.recipe_id,
+      section_id: step.section_id,
+      step_number: step.step_number,
+      description: value,
+    });
+
+    // Replace the current section item
+    sectionsMapCopy.set(sectionIndex, {
+      id: section.id,
+      name: section.name,
+      recipe_id: section.recipe_id,
+      sort_number: section.sort_number,
+      steps: stepsCopy,
+    });
+
+    // Update the parent state
+    setSectionsMap(sectionsMapCopy);
+  };
+
   return (
     <div className="step">
       <label htmlFor="stepNumber">Step #</label>
@@ -60,12 +86,11 @@ const Step = (props) => {
       <textarea
         type="text"
         name="description"
-        defaultValue="Type step description"
-        value={step.description}
+        value={description}
         id="stepDescription"
         className="form-control"
         required
-        // onChange={updateValue}
+        onChange={updateValueDescription}
       />
     </div>
   );
@@ -74,6 +99,8 @@ const Step = (props) => {
 Step.propTypes = {
   step: PropTypes.object,
   section: PropTypes.object,
+  sectionIndex: PropTypes.number,
+  stepIndex: PropTypes.number,
   sectionsMap: PropTypes.shape({
     k0: PropTypes.arrayOf(PropTypes.number),
     k1: PropTypes.arrayOf(PropTypes.string)

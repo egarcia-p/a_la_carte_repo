@@ -38,10 +38,8 @@ function RecipeSteps() {
         return Promise.all([res1.json()]);
       })
       .then(([res1]) => {
-        console.log(res1);
         const newMap = new Map();
         Array.from(res1).map((row, index) => newMap.set(index, row))
-        console.log(newMap)
         setSectionsMap(newMap);
       });
   }, []);
@@ -52,7 +50,7 @@ function RecipeSteps() {
   };
 
   function onNewSectionClick() {
-    const key = sectionsMap.size + 1;
+    const key = sectionsMap.size;// is this a good key? or can we get last and add 1? in case of deletions
     const newSection = {
       id: "",
       name: "Insert Name",
@@ -96,8 +94,6 @@ function RecipeSteps() {
       })
       .catch((error) => console.log(error.message));
   }
-  console.log(sectionsMap.keys)
-  console.log(Object.keys(sectionsMap));
   return (
     <div className="container mt-5">
       <div className="row">
