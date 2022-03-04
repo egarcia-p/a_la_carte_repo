@@ -52,20 +52,22 @@ function RecipeSteps() {
   };
 
   function onNewSectionClick() {
-    // const newSection = {
-    //   index: sections.length + 1,
-    //   id: "",
-    //   name: "Insert Name",
-    //   steps: [],
-    // };
-    // setSections([...sections, newSection]);
+    const key = sectionsMap.size + 1;
+    const newSection = {
+      id: "",
+      name: "Insert Name",
+      steps: [],
+    };
+    const newMap = new Map(sectionsMap)
+    newMap.set(key,newSection)
+    setSectionsMap(newMap);
   }
 
   function onSubmit(e) {
     e.preventDefault();
     
 
-    var target = { targetrecord: sectionsMap };
+    var target = { targetrecord: Array.from(sectionsMap.values()) };
     console.log({
       target,
     });
