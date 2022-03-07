@@ -33,6 +33,7 @@ const Section = (props) => {
     const newStep = {
       description: "Fill Description",
       step_number: section.steps.length + 1,
+      recipe_id: section.recipe_id,
     };
     
     const sectionsMapCopy = new Map(props.sectionsMap); // Get a copy of the sections array

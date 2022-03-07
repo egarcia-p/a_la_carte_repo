@@ -24,7 +24,7 @@ class Api::V1::RecipesController < ApplicationController
 
   def show
     if recipe
-      render json: recipe
+      render json: recipe.to_json(include: :steps)
     else
       render json: recipe.errors
     end
@@ -42,6 +42,6 @@ class Api::V1::RecipesController < ApplicationController
   end
 
   def recipe
-    @recipe ||= Recipe.find(params[:id])
+    @recipe ||= Recipe.includes(:steps).find(params[:id])
   end
 end

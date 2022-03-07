@@ -34,6 +34,8 @@ class Api::V1::SectionsController < ApplicationController
         if save_succeeded
           record[:id] = tr.id
           save_succeeded = false unless save_steps(record)
+        else
+          @targetrecords << "invalid Record: #{tr}"
         end
       end
 
@@ -43,7 +45,7 @@ class Api::V1::SectionsController < ApplicationController
     if save_succeeded
       render json: @targetrecords.to_json, status: 200
     else
-      render json: @targetrecords.errors, status: 404
+      render json: @targetrecords.to_json, status: 404
     end
   end
 
@@ -75,7 +77,7 @@ class Api::V1::SectionsController < ApplicationController
   def save_steps(section)
     save_succeeded = true
 
-    return true if !section[:steps].present?
+    return true unless section[:steps].present?
 
     section[:steps].each do |step|
       stepObj = Step.find_by_id(step[:id])

@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "../components/Home";
 import Recipes from "../components/recipes/Recipes";
-import Recipe from "../components/recipes/Recipe";
+import Recipe from "../components/recipes/show/Recipe";
 import NewRecipe from "../components/recipes/new/NewRecipe";
 import Tags from "../components/tags/Tags";
 import NewTag from "../components/tags/NewTag";

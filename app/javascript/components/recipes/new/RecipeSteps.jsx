@@ -52,8 +52,8 @@ function RecipeSteps() {
   function onNewSectionClick() {
     const key = sectionsMap.size;// is this a good key? or can we get last and add 1? in case of deletions
     const newSection = {
-      id: "",
       name: "Insert Name",
+      recipe_id: params.id,
       steps: [],
     };
     const newMap = new Map(sectionsMap)
