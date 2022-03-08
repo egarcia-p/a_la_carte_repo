@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Sections from "./Sections";
 
 class Recipe extends React.Component {
     constructor(props) {
@@ -106,7 +107,10 @@ class Recipe extends React.Component {
                       __html: `${recipeInstruction}`
                     }}*/
                   />
-                  Insert Instructions...
+                  
+                  {recipe.sections && 
+                    <Sections sections={recipe.sections} />
+                  }
                 </div>
                 <div className="col-sm-12 col-lg-2">
                   <button type="button" className="btn btn-danger" onClick={this.deleteRecipe}>
