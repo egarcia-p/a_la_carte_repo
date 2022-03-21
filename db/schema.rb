@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_10_21_031635) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name", limit: 100, null: false
-    t.string "uom", limit: 100, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -108,7 +107,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_031635) do
   create_table "uoms", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.string "base_unit", limit: 100, null: false
-    t.string "type", limit: 10, null: false
+    t.string "system", limit: 10, null: false
     t.float "conversion"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

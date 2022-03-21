@@ -1,9 +1,9 @@
 class Api::V1::SectionsController < ApplicationController
   %i[recipe_id].each do |attribute|
     define_method :"find_by_#{attribute}" do
-      sections = Section.includes(:steps).where("#{attribute}": params[:id])
+      sections = Section.includes(:steps,:recipe_ingredients).where("#{attribute}": params[:id])
       if sections
-        render json: sections.to_json(include: :steps)
+        render json: sections.to_json(include: [:steps, :recipe_ingredients])
       else
         render json: {}
       end
@@ -27,6 +27,7 @@ class Api::V1::SectionsController < ApplicationController
       if section
         save_succeeded = false unless section.update(targetrecord_params(record))
         save_succeeded = false unless save_steps(record)
+        save_succeeded = false unless save_ingredients(record)
         tr = record
       else
         tr = Section.new(targetrecord_params(record))
@@ -34,6 +35,7 @@ class Api::V1::SectionsController < ApplicationController
         if save_succeeded
           record[:id] = tr.id
           save_succeeded = false unless save_steps(record)
+          save_succeeded = false unless save_ingredients(record)
         else
           @targetrecords << "invalid Record: #{tr}"
         end
@@ -96,8 +98,34 @@ class Api::V1::SectionsController < ApplicationController
     save_succeeded
   end
 
+  def save_ingredients(section)
+    save_succeeded = true
+
+    return true unless section[:recipe_ingredients].present?
+
+    section[:recipe_ingredients].each do |recipe_ingredient|
+      recipeIngredientObj = RecipeIngredient.find_by_id(recipe_ingredient[:id])
+      if recipeIngredientObj
+        save_succeeded = false unless recipeIngredientObj.update(recipe_ingredient_params(recipe_ingredient))
+        tr = recipe_ingredient
+      else
+        recipe_ingredient[:section_id] = section[:id]
+        tr = RecipeIngredient.new(recipe_ingredient_params(recipe_ingredient))
+        save_succeeded = false unless tr.save
+      end
+
+      # @targetrecords << tr
+    end
+
+    save_succeeded
+  end
+
   def step_params(step)
     step.permit(:id, :description, :step_number, :section_id, :recipe_id)
+  end
+
+  def recipe_ingredient_params(recipe_ingredient)
+    recipe_ingredient.permit(:id, :recipe_id, :ingredient_id, :uom_id, :quantity, :section_id)
   end
 
   def targetrecord_params(record)

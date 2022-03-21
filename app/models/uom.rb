@@ -6,6 +6,6 @@ class Uom < ApplicationRecord
                    length: { maximum: 100 }
   validates :base_unit, presence: true,
                         length: { maximum: 100 }
-  validates :type, presence: true,
+  validates :system, presence: true,
                    length: { maximum: 10 }
 end

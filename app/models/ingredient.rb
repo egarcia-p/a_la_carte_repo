@@ -4,6 +4,4 @@ class Ingredient < ApplicationRecord
 
   validates :name, presence: true,
                    length: { maximum: 100 }
-  validates :uom, presence: true,
-                  length: { maximum: 100 }
 end

@@ -3,7 +3,7 @@ class CreateUoms < ActiveRecord::Migration[6.1]
     create_table :uoms do |t|
       t.string :name, :limit => 100, :null => false
       t.string :base_unit, :limit => 100, :null => false
-      t.string :type, :limit => 10, :null => false
+      t.string :system, :limit => 10, :null => false
       t.float :conversion
 
       t.timestamps
