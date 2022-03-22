@@ -1,66 +1,57 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from "react";
+import PropTypes from "prop-types";
 
 const Sections = (props) => {
-    const sections = props.sections;//TODO check if needed to declare as map
-    console.log(sections)
-    return (
-        <div>
-            {sections.map((section,i) => (
-              <Section
-                key={i}
-                section={section}
-              ></Section>
-            ))}
-        </div>
-
-    );
-}
+  const sections = props.sections; //TODO check if needed to declare as map
+  console.log(sections);
+  return (
+    <div>
+      {sections.map((section, i) => (
+        <Section key={i} section={section}></Section>
+      ))}
+    </div>
+  );
+};
 
 const Section = (props) => {
-    const section = props.section;
+  const section = props.section;
 
-    console.log(section)
-
+  if (section.steps.length > 0) {
     return (
-        <div>
-            <h3>{section.name}</h3>
-            {section.steps.map((step,i) => (
-              <Step
-                key={i}
-                step={step}
-              ></Step>
-            ))}
-        </div>
-
+      <div>
+        <h3>{section.name}</h3>
+        {section.steps.map((step, i) => (
+          <Step key={i} step={step}></Step>
+        ))}
+      </div>
     );
-}
+  } else {
+    return <div></div>;
+  }
+};
 
 const Step = (props) => {
-    const step  = props.step;
+  const step = props.step;
 
-    // console.log(step)
+  // console.log(step)
 
-    return (
-        <div>
-            {step.step_number}: {step.description}
-        </div>
-
-    );
-}
+  return (
+    <div>
+      {step.step_number}: {step.description}
+    </div>
+  );
+};
 
 Sections.propTypes = {
-    sections: PropTypes.array,
-}
+  sections: PropTypes.array,
+};
 
 Section.propTypes = {
-    section: PropTypes.object,
-}
+  section: PropTypes.object,
+};
 
 Step.propTypes = {
-    step: PropTypes.object,
-}
-
-
+  step: PropTypes.object,
+};
 
 export default Sections;
