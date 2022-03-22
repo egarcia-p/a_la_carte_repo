@@ -19,6 +19,8 @@ const SectionIngredient = (props) => {
   const section = props.section;
   const sectionIndex = props.sectionIndex;
   const setSectionsMap = props.setSectionsMap;
+  const listIngredients = props.listIngredients;
+  const listUoms = props.listUoms;
   //const sections = props.sections;
   //const nameRef = useRef();
   const [name, setName] = useState(section.name);
@@ -92,6 +94,8 @@ const SectionIngredient = (props) => {
             ingredientIndex={index}
             sectionsMap={props.sectionsMap}
             setSectionsMap={setSectionsMap}
+            listIngredients={listIngredients}
+            listUoms={listUoms}
             ></RecipeIngredient>
         ))}
       </div>
@@ -107,6 +111,8 @@ SectionIngredient.propTypes = {
     k1: PropTypes.arrayOf(PropTypes.string),
   }),
   setSectionsMap: PropTypes.func,
+  listIngredients: PropTypes.array,
+  listUoms: PropTypes.array,
 };
 
 SectionNameInput.propTypes = {

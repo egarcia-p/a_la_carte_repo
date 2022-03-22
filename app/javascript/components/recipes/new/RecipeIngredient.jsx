@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import Select from "react-select";
 
 const RecipeIngredient = (props) => {
   const recipe_ingredient = props.recipe_ingredient;
@@ -7,15 +8,27 @@ const RecipeIngredient = (props) => {
   const sectionIndex = props.sectionIndex;
   const ingredientIndex = props.ingredientIndex;
   const setSectionsMap = props.setSectionsMap;
+  const listIngredients = props.listIngredients;
+  const listUoms = props.listUoms;
   const [ingredientId, setIngredientId] = useState(
     recipe_ingredient.ingredient_id
   );
+  
+  const [ingredient, setIngredient] = useState({
+    id: "blank",
+    name: "Select an Ingredient",
+  });
   const [quantity, setQuantity] = useState(recipe_ingredient.quantity);
   const [uomId, setUOMId] = useState(recipe_ingredient.uom_id);
+  const [uom, setUOM] = useState({
+    id: "blank",
+    name: "Select a Unit of Measure",
+  });
 
-  const updateValueIngredientId = (e) => {
-    const value = e.target.value;
+  const updateValueIngredientId = (selectedOption) => {
+    const value = selectedOption.id;
     setIngredientId(value);
+    setIngredient(selectedOption);
 
     //Replace section ingredients
     const sectionsMapCopy = new Map(props.sectionsMap); // Get a copy of the sections array
@@ -45,9 +58,10 @@ const RecipeIngredient = (props) => {
     setSectionsMap(sectionsMapCopy);
   };
 
-  const updateValueUOMId = (e) => {
-    const value = e.target.value;
+  const updateValueUOMId = (selectedOption) => {
+    const value = selectedOption.id;
     setUOMId(value);
+    setUOM(selectedOption);
 
     //Replace section ingredients
     const sectionsMapCopy = new Map(props.sectionsMap); // Get a copy of the sections array
@@ -112,25 +126,23 @@ const RecipeIngredient = (props) => {
   return (
     <div className="recipe_ingredient">
       <label htmlFor="ingredient">Ingredient</label>
-      <input
-        type="text"
-        name="ingredient_id"
-        value={ingredientId}
-        id="ingredientId"
-        className="form-control"
-        required
+      <Select
         onChange={updateValueIngredientId}
-      />
+        name="ingredient_id"
+        value={ingredient}
+        options={listIngredients}
+        getOptionLabel={(option) => `${option.name}`}
+        getOptionValue={(option) => `${option.id}`}
+      ></Select>
       <label htmlFor="uom">UOM</label>
-      <textarea
-        type="text"
-        name="uom_id"
-        value={uomId}
-        id="uomId"
-        className="form-control"
-        required
+      <Select
         onChange={updateValueUOMId}
-      />
+        name="uom_id"
+        value={uom}
+        options={listUoms}
+        getOptionLabel={(option) => `${option.name}`}
+        getOptionValue={(option) => `${option.id}`}
+      ></Select>
       <label htmlFor="quantity">Quantity</label>
       <textarea
         type="text"
@@ -150,6 +162,8 @@ RecipeIngredient.propTypes = {
   section: PropTypes.object,
   sectionIndex: PropTypes.number,
   ingredientIndex: PropTypes.number,
+  listIngredients: PropTypes.array,
+  listUoms: PropTypes.array,
   sectionsMap: PropTypes.shape({
     k0: PropTypes.arrayOf(PropTypes.number),
     k1: PropTypes.arrayOf(PropTypes.string),

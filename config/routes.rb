@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  
   namespace :api do
     namespace :v1 do
       get 'recipes/index'
@@ -34,6 +36,27 @@ Rails.application.routes.draw do
       delete 'categories/destroy/:id', to: 'categories#destroy'
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      get 'ingredients/index'
+      post 'ingredients/create'
+      get 'ingredients/edit/:id', to: 'ingredients#edit'
+      post 'ingredients/update/:id', to: 'ingredients#update'
+      delete 'ingredients/destroy/:id', to: 'ingredients#destroy'
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      get 'uoms/index'
+      post 'uoms/create'
+      get 'uoms/edit/:id', to: 'uoms#edit'
+      post 'uoms/update/:id', to: 'uoms#update'
+      delete 'uoms/destroy/:id', to: 'uoms#destroy'
+    end
+  end
+
   namespace :api do
     namespace :v1 do
       post 'sections/create'
