@@ -87,7 +87,7 @@ function RecipeSteps() {
         }
         throw new Error("Network response was not ok.");
       })
-      .then((response) => {
+      .then(() => {
         history.push({
           pathname: `/recipe/${params.id}`,
         });

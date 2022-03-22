@@ -1,1 +1,2 @@
 http://localhost:3000/api/v1/recipes/show/1
+http://localhost:3000//api/v1/sections/find_by_recipe_id/1

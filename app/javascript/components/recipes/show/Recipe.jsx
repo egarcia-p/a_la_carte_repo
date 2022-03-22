@@ -1,25 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Ingredients from "./Ingredients";
 import Sections from "./Sections";
 
-class Recipe extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { recipe: { total_time: "" } };
+function Recipe() {
+  let params = useParams();
+  const history = useHistory();
+  const [recipe, setRecipe] = useState({});
 
-    this.addHtmlEntities = this.addHtmlEntities.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
-  }
-
-  componentDidMount() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
-
-    const url = `/api/v1/recipes/show/${id}`;
+  useEffect(() => {
+    const url = `/api/v1/recipes/show/${params.id}`;
 
     fetch(url)
       .then((response) => {
@@ -28,22 +18,13 @@ class Recipe extends React.Component {
         }
         throw new Error("Network response was not ok.");
       })
-      .then((response) => this.setState({ recipe: response }))
-      .catch(() => this.props.history.push("/recipes"));
-  }
+      .then((response) => setRecipe(response))
+      .catch(() => history.push("/recipes"));
+  }, []);
 
-  addHtmlEntities(str) {
-    return String(str).replace(/&lt;/g, "<").replace(/&gt;/g, ">");
-  }
-
-  deleteRecipe() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
-    const url = `/api/v1/recipes/destroy/${id}`;
-    const token = document.querySelector('meta[name="csrf-token"]').content;
+  function deleteRecipe() {
+    const url = `/api/v1/recipes/destroy/${params.id}`;
+    const token = `$('meta[name="csrf-token"]').attr('content')`;
 
     fetch(url, {
       method: "DELETE",
@@ -58,90 +39,67 @@ class Recipe extends React.Component {
         }
         throw new Error("Network response was not ok.");
       })
-      .then(() => this.props.history.push("/recipes"))
+      .then(() => history.push("/recipes"))
       .catch((error) => console.log(error.message));
   }
 
-  render() {
-    const { recipe } = this.state;
-
-    /*let ingredientList = "No ingredients available";
-    
-        if (recipe.ingredients.length > 0) {
-          ingredientList = recipe.ingredients
-            .split(",")
-            .map((ingredient, index) => (
-              <li key={index} className="list-group-item">
-                {ingredient}
-              </li>
-            ));
-        }
-        const recipeInstruction = this.addHtmlEntities(recipe.instruction);*/
-
-    return (
-      <div className="">
-        <div className="hero position-relative d-flex align-items-center justify-content-center">
-          <img
-            src={recipe.image}
-            alt={`${recipe.title} image`}
-            className="img-fluid position-absolute"
-          />
-          <div className="overlay bg-dark position-absolute" />
-          <h1 className="display-4 position-relative text-white">
-            {recipe.title}
-          </h1>
-        </div>
-        <div className="container py-5">
-          <div className="row">
-            <div className="col-sm-12 col-lg-3">
-              <ul className="list-group">
-                <h5 className="mb-2">Ingredients</h5>
-                {recipe.sections && <Ingredients sections={recipe.sections} />}
-              </ul>
-            </div>
-            <div className="col-sm-12 col-lg-7">
-              <h5 className="mb-2">Preparation Instructions</h5>
-              <div
-              /*dangerouslySetInnerHTML={{
+  return (
+    <div className="">
+      <div className="hero position-relative d-flex align-items-center justify-content-center">
+        <img
+          src={recipe.image}
+          alt={`${recipe.title} image`}
+          className="img-fluid position-absolute"
+        />
+        <div className="overlay bg-dark position-absolute" />
+        <h1 className="display-4 position-relative text-white">
+          {recipe.title}
+        </h1>
+      </div>
+      <div className="container py-5">
+        <div className="row">
+          <div className="col-sm-12 col-lg-3">
+            <ul className="list-group">
+              <h5 className="mb-2">Ingredients</h5>
+              {recipe.sections && <Ingredients sections={recipe.sections} />}
+            </ul>
+          </div>
+          <div className="col-sm-12 col-lg-7">
+            <h5 className="mb-2">Preparation Instructions</h5>
+            <div
+            /*dangerouslySetInnerHTML={{
                       __html: `${recipeInstruction}`
                     }}*/
-              />
+            />
 
-              {recipe.sections && <Sections sections={recipe.sections} />}
-            </div>
-            <div className="col-sm-12 col-lg-2">
-              <Link to={`/recipe_ingredients/${recipe.id}`}>
-                <button
-                  type="button"
-                  className="btn btn-warning"
-                >
-                  Edit Ingredients
-                </button>
-              </Link>
-              <Link to={`/recipe_steps/${recipe.id}`}>
-                <button
-                  type="button"
-                  className="btn btn-warning"
-                >
-                  Edit Instructions
-                </button>
-              </Link>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={this.deleteRecipe}
-              >
-                Delete Recipe
-              </button>
-            </div>
+            {recipe.sections && <Sections sections={recipe.sections} />}
           </div>
-          <Link to="/recipes" className="btn btn-link">
-            Back to recipes
-          </Link>
+          <div className="col-sm-12 col-lg-2">
+            <Link to={`/recipe_ingredients/${recipe.id}`}>
+              <button type="button" className="btn btn-warning">
+                Edit Ingredients
+              </button>
+            </Link>
+            <Link to={`/recipe_steps/${recipe.id}`}>
+              <button type="button" className="btn btn-warning">
+                Edit Instructions
+              </button>
+            </Link>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={deleteRecipe}
+            >
+              Delete Recipe
+            </button>
+          </div>
         </div>
+        <Link to="/recipes" className="btn btn-link">
+          Back to recipes
+        </Link>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Recipe;
