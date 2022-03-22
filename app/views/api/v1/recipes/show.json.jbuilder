@@ -34,6 +34,18 @@ json.sections @recipe.sections do |section|
     json.created_at recipe_ingredient.created_at
     json.updated_at recipe_ingredient.updated_at
   end
+  json.recipe_equipments section.recipe_equipments do |recipe_equipment|
+    json.id recipe_equipment.id
+    json.recipe_id recipe_equipment.recipe_id
+    json.equipment_id recipe_equipment.equipment_id
+    json.name recipe_equipment.equipment.name
+    json.uom_id recipe_equipment.uom_id
+    json.uom_name recipe_equipment.uom.name
+    json.quantity recipe_equipment.quantity
+    json.section_id recipe_equipment.section_id
+    json.created_at recipe_equipment.created_at
+    json.updated_at recipe_equipment.updated_at
+  end
 end
 
 # if current_user.admin?

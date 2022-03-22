@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import SectionIngredient from "./SectionIngredient";
+import SectionEquipment from "./SectionEquipment";
 
-function RecipeIngredients() {
+function RecipeEquipments() {
   let params = useParams();
   const history = useHistory();
   const [sectionsMap, setSectionsMap] = useState(
@@ -14,17 +14,19 @@ function RecipeIngredients() {
     //   name: "Section Test 1",
     //   ingredients: [{ingredient_id: #, uom_id: #, quantity: #}]
     //   steps: [{ description: "Desc step 1", step_number: 1 }],
+    //   recipe_equipments: [{equipment_id: #, uom_id: #, quantity: #}]
     // },
     // {
     //   index: 2,
     //   id: 2,
     //   name: "Section Test 1",
     //   ingredients: [{ingredient_id: #, uom_id: #, quantity: #}]
+    //   recipe_equipments: [{equipment_id: #, uom_id: #, quantity: #}]
     // },
   );
 
   useEffect(() => {
-    //API setup for ingredients
+    //API setup for equipments
     Promise.all([
       fetch(`/api/v1/sections/find_by_recipe_id/${params.id}`),
     ])
@@ -49,6 +51,7 @@ function RecipeIngredients() {
       name: "Insert Name",
       recipe_id: params.id,
       recipe_ingredients: [],
+      recipe_equipments: [],
     };
     const newMap = new Map(sectionsMap);
     newMap.set(key, newSection);
@@ -56,7 +59,6 @@ function RecipeIngredients() {
   }
 
   function onSubmit(e) {
-    // TODO adjust for ingredients
     e.preventDefault();
 
     var target = { targetrecord: Array.from(sectionsMap.values()) };
@@ -93,18 +95,18 @@ function RecipeIngredients() {
       <div className="row">
         <div className="col-sm-12 col-lg-6 offset-lg-3">
           <h1 className="font-weight-normal mb-5">
-            Add Sections and Ingredients for Recipe: {params.id}
+            Add Sections and Special Equipments for Recipe: {params.id}
           </h1>
           <AddSectionButton />
           <form onSubmit={onSubmit}>
             {Array.from(sectionsMap.values()).map((section, i) => (
-              <SectionIngredient
+              <SectionEquipment
                 key={i}
                 section={section}
                 sectionIndex={i}
                 sectionsMap={sectionsMap}
                 setSectionsMap={setSectionsMap}
-              ></SectionIngredient>
+              ></SectionEquipment>
             ))}
 
             <button type="submit">Save form</button>
@@ -115,4 +117,4 @@ function RecipeIngredients() {
   );
 }
 
-export default RecipeIngredients;
+export default RecipeEquipments;

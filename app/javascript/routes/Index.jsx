@@ -15,6 +15,7 @@ import NewSubcategory from "../components/subcategories/NewSubcategory";
 import EditSubcategory from "../components/subcategories/EditSubcategory";
 import RecipeSteps from "../components/recipes/new/RecipeSteps";
 import RecipeIngredients from "../components/recipes/new/RecipeIngredients";
+import RecipeEquipments from "../components/recipes/new/RecipeEquipments";
 
 export default (
   <Router>
@@ -34,7 +35,8 @@ export default (
       <Route path="/subcategory/:id" exact component={EditSubcategory} />
       <Route path="/recipe_steps/:id" exact component={RecipeSteps} />
       <Route path="/recipe_ingredients/:id" exact component={RecipeIngredients} />
-
+      <Route path="/recipe_equipments/:id" exact component={RecipeEquipments} />
+      
     </Switch>
   </Router>
 );

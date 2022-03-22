@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
+import Equipments from "./Equipments";
 import Ingredients from "./Ingredients";
 import Sections from "./Sections";
 
@@ -62,6 +63,8 @@ function Recipe() {
             <ul className="list-group">
               <h5 className="mb-2">Ingredients</h5>
               {recipe.sections && <Ingredients sections={recipe.sections} />}
+              <h5 className="mb-2">Special Equipments</h5>
+              {recipe.sections && <Equipments sections={recipe.sections} />}
             </ul>
           </div>
           <div className="col-sm-12 col-lg-7">
@@ -83,6 +86,11 @@ function Recipe() {
             <Link to={`/recipe_steps/${recipe.id}`}>
               <button type="button" className="btn btn-warning">
                 Edit Instructions
+              </button>
+            </Link>
+            <Link to={`/recipe_equipments/${recipe.id}`}>
+              <button type="button" className="btn btn-warning">
+                Edit Special Equipments
               </button>
             </Link>
             <button
