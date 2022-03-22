@@ -84,7 +84,7 @@ function RecipeIngredients() {
       })
       .then((response) => {
         history.push({
-          pathname: "/recipes",
+          pathname: `/recipe/${params.id}`,
         });
       })
       .catch((error) => console.log(error.message));
