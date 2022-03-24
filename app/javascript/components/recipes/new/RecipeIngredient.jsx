@@ -13,17 +13,10 @@ const RecipeIngredient = (props) => {
   const [ingredientId, setIngredientId] = useState(
     recipe_ingredient.ingredient_id
   );
-  
-  const [ingredient, setIngredient] = useState({
-    id: "blank",
-    name: "Select an Ingredient",
-  });
+  const [ingredient, setIngredient] = useState(listIngredients.find((ing) => ing.id === recipe_ingredient.ingredient_id));
   const [quantity, setQuantity] = useState(recipe_ingredient.quantity);
   const [uomId, setUOMId] = useState(recipe_ingredient.uom_id);
-  const [uom, setUOM] = useState({
-    id: "blank",
-    name: "Select a Unit of Measure",
-  });
+  const [uom, setUOM] = useState(listUoms.find((uom) => uom.id === recipe_ingredient.uom_id));
 
   const updateValueIngredientId = (selectedOption) => {
     const value = selectedOption.id;

@@ -5,8 +5,8 @@ import SectionIngredient from "./SectionIngredient";
 function RecipeIngredients() {
   let params = useParams();
   const history = useHistory();
-  const [listIngredients,setListIngredients] = useState([]);
-  const [listUoms,setListUoms] = useState([]);
+  const [listIngredients, setListIngredients] = useState([]);
+  const [listUoms, setListUoms] = useState([]);
   const [sectionsMap, setSectionsMap] = useState(
     new Map() //structure of JSON
     //Example of json state for sections
@@ -32,10 +32,10 @@ function RecipeIngredients() {
       fetch("/api/v1/ingredients/index"),
       fetch("/api/v1/uoms/index"),
     ])
-      .then(([res1,res2,res3]) => {
-        return Promise.all([res1.json(),res2.json(),res3.json()]);
+      .then(([res1, res2, res3]) => {
+        return Promise.all([res1.json(), res2.json(), res3.json()]);
       })
-      .then(([res1,res2,res3]) => {
+      .then(([res1, res2, res3]) => {
         const newMap = new Map();
         Array.from(res1).map((row, index) => newMap.set(index, row));
         setSectionsMap(newMap);
@@ -94,33 +94,38 @@ function RecipeIngredients() {
       })
       .catch((error) => console.log(error.message));
   }
-  return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-sm-12 col-lg-6 offset-lg-3">
-          <h1 className="font-weight-normal mb-5">
-            Add Sections and Ingredients for Recipe: {params.id}
-          </h1>
-          <AddSectionButton />
-          <form onSubmit={onSubmit}>
-            {Array.from(sectionsMap.values()).map((section, i) => (
-              <SectionIngredient
-                key={i}
-                section={section}
-                sectionIndex={i}
-                sectionsMap={sectionsMap}
-                setSectionsMap={setSectionsMap}
-                listIngredients={listIngredients}
-                listUoms={listUoms}
-              ></SectionIngredient>
-            ))}
 
-            <button type="submit">Save form</button>
-          </form>
+  if (listIngredients.length > 0 && listUoms.length > 0) {
+    return (
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-sm-12 col-lg-6 offset-lg-3">
+            <h1 className="font-weight-normal mb-5">
+              Add Sections and Ingredients for Recipe: {params.id}
+            </h1>
+            <AddSectionButton />
+            <form onSubmit={onSubmit}>
+              {Array.from(sectionsMap.values()).map((section, i) => (
+                <SectionIngredient
+                  key={i}
+                  section={section}
+                  sectionIndex={i}
+                  sectionsMap={sectionsMap}
+                  setSectionsMap={setSectionsMap}
+                  listIngredients={listIngredients}
+                  listUoms={listUoms}
+                ></SectionIngredient>
+              ))}
+
+              <button type="submit">Save form</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <p>Loading...</p>;
+  }
 }
 
 export default RecipeIngredients;
