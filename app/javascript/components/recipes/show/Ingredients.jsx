@@ -39,7 +39,7 @@ const RecipeIngredient = (props) => {
 
   return (
     <div>
-      {recipeIngredient.quantity} {recipeIngredient.uom_name} -{" "}
+      {recipeIngredient.quantity} {(recipeIngredient.short_name || recipeIngredient.uom_name)} -{" "}
       {recipeIngredient.name}
     </div>
   );

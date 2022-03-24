@@ -30,6 +30,7 @@ json.sections @recipe.sections do |section|
       json.name recipe_ingredient.ingredient.name
       json.uom_id recipe_ingredient.uom_id
       json.uom_name recipe_ingredient.uom.name
+      json.short_name recipe_ingredient.uom.short_name
       json.quantity recipe_ingredient.quantity
       json.section_id recipe_ingredient.section_id
       json.created_at recipe_ingredient.created_at
