@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const Step = (props) => {
@@ -9,6 +9,11 @@ const Step = (props) => {
   const setSectionsMap = props.setSectionsMap;
   const [stepNumber, setStepNumber] = useState(step.step_number);
   const [description, setDescription] = useState(step.description);
+
+  useEffect(() => {
+    setStepNumber(step.step_number);
+    setDescription(step.description);
+  }, [props.step])
 
   const updateValueStepNumber = (e) => {
     const value = e.target.value;
