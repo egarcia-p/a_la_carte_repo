@@ -1,9 +1,9 @@
 class Api::V1::SectionsController < ApplicationController
   %i[recipe_id].each do |attribute|
     define_method :"find_by_#{attribute}" do
-      sections = Section.includes(:steps,:recipe_ingredients, :recipe_equipments).where("#{attribute}": params[:id])
+      sections = Section.includes(:steps, :recipe_ingredients, :recipe_equipments).where("#{attribute}": params[:id])
       if sections
-        render json: sections.to_json(include: [:steps, :recipe_ingredients, :recipe_equipments])
+        render json: sections.to_json(include: %i[steps recipe_ingredients recipe_equipments])
       else
         render json: {}
       end
@@ -26,7 +26,7 @@ class Api::V1::SectionsController < ApplicationController
       section = Section.find_by_id(record[:id])
       if section
         save_succeeded = false unless section.update(targetrecord_params(record))
-        save_succeeded = false unless save_steps(record)
+        save_succeeded = false unless save_steps(record, section)
         save_succeeded = false unless save_ingredients(record)
         save_succeeded = false unless save_equipments(record)
         tr = record
@@ -35,7 +35,7 @@ class Api::V1::SectionsController < ApplicationController
         save_succeeded = false unless tr.save
         if save_succeeded
           record[:id] = tr.id
-          save_succeeded = false unless save_steps(record)
+          save_succeeded = false unless save_steps(record, tr)
           save_succeeded = false unless save_ingredients(record)
           save_succeeded = false unless save_equipments(record)
         else
@@ -78,24 +78,36 @@ class Api::V1::SectionsController < ApplicationController
 
   private
 
-  def save_steps(section)
+  def save_steps(record, sectionObj)
     save_succeeded = true
 
-    return true unless section[:steps].present?
+    # return true unless record[:steps].present?
 
-    section[:steps].each do |step|
-      stepObj = Step.find_by_id(step[:id])
-      if stepObj
-        save_succeeded = false unless stepObj.update(step_params(step))
-        tr = step
-      else
-        step[:section_id] = section[:id]
-        tr = Step.new(step_params(step))
-        save_succeeded = false unless tr.save
+    updatedStepIds = []
+
+    if record[:steps].present?
+
+      record[:steps].each do |step|
+        stepObj = Step.find_by_id(step[:id])
+        if stepObj
+          save_succeeded = false unless stepObj.update(step_params(step))
+          tr = stepObj
+        else
+          step[:section_id] = record[:id]
+          tr = Step.new(step_params(step))
+          save_succeeded = false unless tr.save
+        end
+
+        # save array of step ids created/updated
+        updatedStepIds << tr.id
+
+        # @targetrecords << tr
       end
-
-      # @targetrecords << tr
     end
+
+    # clean steps(remove steps that were removed)
+    # option to remove steps that were not updated?
+    remove_steps(updatedStepIds, sectionObj)
 
     save_succeeded
   end
@@ -142,6 +154,13 @@ class Api::V1::SectionsController < ApplicationController
     end
 
     save_succeeded
+  end
+
+  def remove_steps(updatedStepIds, sectionObj)
+    Rails.logger.info("Section: #{sectionObj}")
+    sectionObj.steps.each do |step|
+      step&.destroy unless step.id.in?(updatedStepIds)
+    end
   end
 
   def step_params(step)

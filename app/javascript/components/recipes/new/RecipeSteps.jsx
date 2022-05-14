@@ -54,6 +54,7 @@ function RecipeSteps() {
     const newSection = {
       name: "Insert Name",
       recipe_id: params.id,
+      sort_number: 1,
       steps: [],
     };
     const newMap = new Map(sectionsMap)
