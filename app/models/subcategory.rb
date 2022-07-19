@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Subcategory < ApplicationRecord
   has_many :recipes
 

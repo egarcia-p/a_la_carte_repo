@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Uom < ApplicationRecord
   has_many :recipe_ingredients
   has_many :recipe_equipments

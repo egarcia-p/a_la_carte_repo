@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRecipeIngredients < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :recipe_ingredients do |t|

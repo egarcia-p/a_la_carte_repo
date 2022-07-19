@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSubcategories < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :subcategories do |t|

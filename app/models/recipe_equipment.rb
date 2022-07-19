@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecipeEquipment < ApplicationRecord
   belongs_to :recipe
   belongs_to :section

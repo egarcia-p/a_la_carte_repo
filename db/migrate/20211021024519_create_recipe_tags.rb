@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRecipeTags < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :recipe_tags, id: false do |t|

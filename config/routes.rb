@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
   namespace :api do
     namespace :v1 do

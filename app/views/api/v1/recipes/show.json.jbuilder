@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/views/recipes/show.json.jbuilder
 
 # json.content format_content(@recipe.content)
