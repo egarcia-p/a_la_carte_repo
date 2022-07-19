@@ -37,8 +37,8 @@ module Api
           if section
             save_succeeded = false unless section.update(targetrecord_params(record))
             save_succeeded = false unless save_steps(record, section)
-            save_succeeded = false unless save_ingredients(record)
-            save_succeeded = false unless save_equipments(record)
+            save_succeeded = false unless save_ingredients(record, section)
+            save_succeeded = false unless save_equipments(record, section)
             tr = record
           else
             tr = Section.new(targetrecord_params(record))
@@ -46,8 +46,8 @@ module Api
             if save_succeeded
               record[:id] = tr.id
               save_succeeded = false unless save_steps(record, tr)
-              save_succeeded = false unless save_ingredients(record)
-              save_succeeded = false unless save_equipments(record)
+              save_succeeded = false unless save_ingredients(record, tr)
+              save_succeeded = false unless save_equipments(record, tr)
             else
               @targetrecords << "invalid Record: #{tr}"
             end
@@ -92,24 +92,20 @@ module Api
       private
 
       # rubocop:todo Metrics/MethodLength
-      # rubocop:todo Naming/VariableName
-      # rubocop:todo Naming/MethodParameterName
-      def save_steps(record, sectionObj) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength, Naming/MethodParameterName, Naming/VariableName
-        # rubocop:enable Naming/MethodParameterName
-        # rubocop:enable Naming/VariableName
+      def save_steps(record, section_obj) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
         save_succeeded = true
 
         # return true unless record[:steps].present?
 
-        updatedStepIds = [] # rubocop:todo Naming/VariableName
+        updated_step_ids = []
 
         if record[:steps].present?
 
           record[:steps].each do |step|
-            stepObj = Step.find_by_id(step[:id]) # rubocop:todo Naming/VariableName
-            if stepObj # rubocop:todo Naming/VariableName
-              save_succeeded = false unless stepObj.update(step_params(step)) # rubocop:todo Naming/VariableName
-              tr = stepObj # rubocop:todo Naming/VariableName
+            step_obj = Step.find_by_id(step[:id])
+            if step_obj
+              save_succeeded = false unless step_obj.update(step_params(step))
+              tr = step_obj
             else
               step[:section_id] = record[:id]
               tr = Step.new(step_params(step))
@@ -117,7 +113,7 @@ module Api
             end
 
             # save array of step ids created/updated
-            updatedStepIds << tr.id # rubocop:todo Naming/VariableName
+            updated_step_ids << tr.id
 
             # @targetrecords << tr
           end
@@ -125,32 +121,38 @@ module Api
 
         # clean steps(remove steps that were removed)
         # option to remove steps that were not updated?
-        remove_steps(updatedStepIds, sectionObj) # rubocop:todo Naming/VariableName
+        remove_steps(updated_step_ids, section_obj)
 
         save_succeeded
       end
       # rubocop:enable Metrics/MethodLength
 
-      def save_ingredients(section) # rubocop:todo Metrics/MethodLength
+      def save_ingredients(record, section_obj) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
         save_succeeded = true
 
-        return true unless section[:recipe_ingredients].present?
+        # return true unless section[:recipe_ingredients].present?
 
-        section[:recipe_ingredients].each do |recipe_ingredient|
-          recipeIngredientObj = RecipeIngredient.find_by_id(recipe_ingredient[:id]) # rubocop:todo Naming/VariableName
-          if recipeIngredientObj # rubocop:todo Naming/VariableName
-            # rubocop:todo Naming/VariableName
-            save_succeeded = false unless recipeIngredientObj.update(recipe_ingredient_params(recipe_ingredient))
-            # rubocop:enable Naming/VariableName
-            tr = recipe_ingredient # rubocop:todo Lint/UselessAssignment
-          else
-            recipe_ingredient[:section_id] = section[:id]
-            tr = RecipeIngredient.new(recipe_ingredient_params(recipe_ingredient))
-            save_succeeded = false unless tr.save
+        updated_ingredient_ids = []
+
+        if record[:recipe_ingredients].present?
+          record[:recipe_ingredients].each do |recipe_ingredient|
+            recipe_ingredient_obj = RecipeIngredient.find_by_id(recipe_ingredient[:id])
+            if recipe_ingredient_obj
+              save_succeeded = false unless recipe_ingredient_obj.update(recipe_ingredient_params(recipe_ingredient))
+              tr = recipe_ingredient_obj
+            else
+              recipe_ingredient[:section_id] = record[:id]
+              tr = RecipeIngredient.new(recipe_ingredient_params(recipe_ingredient))
+              save_succeeded = false unless tr.save
+            end
+
+            # save array of recipe ingredient ids created/updated
+            updated_ingredient_ids << tr.id
           end
-
-          # @targetrecords << tr
         end
+
+        # clean recipe_ingredients
+        remove_recipe_ingredients(updated_ingredient_ids, section_obj)
 
         save_succeeded
       end
@@ -179,17 +181,22 @@ module Api
         save_succeeded
       end
 
-      # rubocop:todo Naming/VariableName
-      def remove_steps(updatedStepIds, sectionObj) # rubocop:todo Naming/MethodParameterName, Naming/VariableName
-        # rubocop:enable Naming/VariableName
-        Rails.logger.info("Section: #{sectionObj}") # rubocop:todo Naming/VariableName
-        sectionObj.steps.each do |step| # rubocop:todo Naming/VariableName
-          step&.destroy unless step.id.in?(updatedStepIds) # rubocop:todo Naming/VariableName
+      def remove_steps(updated_step_ids, section_obj)
+        Rails.logger.debug("Section: #{section_obj}")
+        section_obj.steps.each do |step|
+          step&.destroy unless step.id.in?(updated_step_ids)
         end
       end
 
       def step_params(step)
         step.permit(:id, :description, :step_number, :section_id, :recipe_id)
+      end
+
+      def remove_recipe_ingredients(updated_ingredient_ids, section_obj)
+        Rails.logger.debug("Section: #{section_obj}")
+        section_obj.recipe_ingredients.each do |recipe_ingredient|
+          recipe_ingredient&.destroy unless recipe_ingredient.id.in?(updated_ingredient_ids)
+        end
       end
 
       def recipe_ingredient_params(recipe_ingredient)
