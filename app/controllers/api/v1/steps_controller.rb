@@ -1,4 +1,4 @@
-class Api::V1::StepsController < ApplicationController
+class Api::V1::StepsController < ApplicationController # rubocop:todo Style/Documentation
   %i[section_id recipe_id].each do |attribute|
     define_method :"find_by_#{attribute}" do
       steps = Step.find_by("#{attribute}": params[:id])

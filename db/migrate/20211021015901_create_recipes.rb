@@ -1,4 +1,4 @@
-class CreateRecipes < ActiveRecord::Migration[6.1]
+class CreateRecipes < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :recipes do |t|
       t.string :title, limit: 255, null: false

@@ -1,4 +1,4 @@
-class CreateEquipment < ActiveRecord::Migration[6.1]
+class CreateEquipment < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :equipment do |t|
       t.string :name, limit: 255, null: false

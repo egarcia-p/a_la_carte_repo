@@ -1,4 +1,4 @@
-class Api::V1::CategoriesController < ApplicationController
+class Api::V1::CategoriesController < ApplicationController # rubocop:todo Style/Documentation
   def index
     categories = Category.all.order(id: :asc)
     render json: categories

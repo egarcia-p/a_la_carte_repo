@@ -1,4 +1,4 @@
-class Api::V1::UomsController < ApplicationController
+class Api::V1::UomsController < ApplicationController # rubocop:todo Style/Documentation
   def index
     uoms = Uom.all.order(id: :asc)
     render json: uoms

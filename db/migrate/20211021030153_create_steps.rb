@@ -1,4 +1,4 @@
-class CreateSteps < ActiveRecord::Migration[6.1]
+class CreateSteps < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :steps do |t|
       t.text :description, null: false

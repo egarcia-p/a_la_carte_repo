@@ -1,4 +1,4 @@
-class CreateRecipeTags < ActiveRecord::Migration[6.1]
+class CreateRecipeTags < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :recipe_tags, id: false do |t|
       t.integer :recipe_id, null: false

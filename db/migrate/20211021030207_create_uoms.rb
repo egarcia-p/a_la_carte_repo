@@ -1,4 +1,4 @@
-class CreateUoms < ActiveRecord::Migration[6.1]
+class CreateUoms < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :uoms do |t|
       t.string :name, limit: 100, null: false

@@ -6,7 +6,7 @@
 json.call(@recipe, :author, :category_id, :created_at, :id, :servings, :subcategory_id, :subtitle, :title, :total_time,
           :updated_at)
 
-json.sections @recipe.sections do |section|
+json.sections @recipe.sections do |section| # rubocop:todo Metrics/BlockLength
   json.id section.id
   json.name section.name
   json.recipe_id section.recipe_id

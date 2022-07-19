@@ -1,4 +1,4 @@
-class Api::V1::IngredientsController < ApplicationController
+class Api::V1::IngredientsController < ApplicationController # rubocop:todo Style/Documentation
   def index
     ingredients = Ingredient.all.order(id: :asc)
     render json: ingredients

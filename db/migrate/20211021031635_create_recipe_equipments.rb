@@ -1,4 +1,4 @@
-class CreateRecipeEquipments < ActiveRecord::Migration[6.1]
+class CreateRecipeEquipments < ActiveRecord::Migration[6.1] # rubocop:todo Style/Documentation
   def up
     create_table :recipe_equipments do |t|
       t.integer :recipe_id, null: false

@@ -20,7 +20,7 @@ require 'sprockets/railtie'
 Bundler.require(*Rails.groups)
 
 module ALaCarteReact
-  class Application < Rails::Application
+  class Application < Rails::Application # rubocop:todo Style/Documentation
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 

@@ -1,4 +1,4 @@
-class Api::V1::RecipesController < ApplicationController
+class Api::V1::RecipesController < ApplicationController # rubocop:todo Style/Documentation
   def index
     recipe = Recipe.all.order(created_at: :desc)
     render json: recipe

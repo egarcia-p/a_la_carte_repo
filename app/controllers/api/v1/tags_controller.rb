@@ -1,4 +1,4 @@
-class Api::V1::TagsController < ApplicationController
+class Api::V1::TagsController < ApplicationController # rubocop:todo Style/Documentation
   def index
     tags = Tag.all.order(id: :asc)
     render json: tags
