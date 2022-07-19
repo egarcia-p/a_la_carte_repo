@@ -24,7 +24,7 @@ class Api::V1::RecipesController < ApplicationController
 
   def show
     if recipe
-      render 'show.json.jbuilder' #check jbuilder gem
+      render 'show.json.jbuilder' # check jbuilder gem
     else
       render json: recipe.errors
     end

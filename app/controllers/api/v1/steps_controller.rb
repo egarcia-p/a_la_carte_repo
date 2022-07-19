@@ -1,7 +1,7 @@
 class Api::V1::StepsController < ApplicationController
   %i[section_id recipe_id].each do |attribute|
     define_method :"find_by_#{attribute}" do
-      steps = Step.find_by("#{attribute}": params[:id] )
+      steps = Step.find_by("#{attribute}": params[:id])
       if steps
         render json: steps
       else

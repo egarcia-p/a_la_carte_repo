@@ -10,108 +10,106 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_24_015807) do
-
+ActiveRecord::Schema.define(version: 20_220_324_015_807) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name", limit: 100, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'categories', force: :cascade do |t|
+    t.string 'name', limit: 100, null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "equipment", force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.string "material", limit: 100
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'equipment', force: :cascade do |t|
+    t.string 'name', limit: 255, null: false
+    t.string 'material', limit: 100
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "ingredients", force: :cascade do |t|
-    t.string "name", limit: 100, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'ingredients', force: :cascade do |t|
+    t.string 'name', limit: 100, null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "recipe_equipments", force: :cascade do |t|
-    t.integer "recipe_id", null: false
-    t.integer "equipment_id", null: false
-    t.float "quantity", null: false
-    t.integer "uom_id"
-    t.integer "section_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'recipe_equipments', force: :cascade do |t|
+    t.integer 'recipe_id', null: false
+    t.integer 'equipment_id', null: false
+    t.float 'quantity', null: false
+    t.integer 'uom_id'
+    t.integer 'section_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "recipe_ingredients", force: :cascade do |t|
-    t.integer "recipe_id", null: false
-    t.integer "ingredient_id", null: false
-    t.float "quantity", null: false
-    t.integer "uom_id", null: false
-    t.integer "section_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'recipe_ingredients', force: :cascade do |t|
+    t.integer 'recipe_id', null: false
+    t.integer 'ingredient_id', null: false
+    t.float 'quantity', null: false
+    t.integer 'uom_id', null: false
+    t.integer 'section_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "recipe_tags", id: false, force: :cascade do |t|
-    t.integer "recipe_id", null: false
-    t.integer "tag_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'recipe_tags', id: false, force: :cascade do |t|
+    t.integer 'recipe_id', null: false
+    t.integer 'tag_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "recipes", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
-    t.string "subtitle", limit: 255
-    t.integer "servings", null: false
-    t.integer "total_time", null: false
-    t.string "author", limit: 255, null: false
-    t.integer "category_id", null: false
-    t.integer "subcategory_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'recipes', force: :cascade do |t|
+    t.string 'title', limit: 255, null: false
+    t.string 'subtitle', limit: 255
+    t.integer 'servings', null: false
+    t.integer 'total_time', null: false
+    t.string 'author', limit: 255, null: false
+    t.integer 'category_id', null: false
+    t.integer 'subcategory_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "sections", force: :cascade do |t|
-    t.string "name", limit: 100, null: false
-    t.integer "sort_number"
-    t.integer "recipe_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'sections', force: :cascade do |t|
+    t.string 'name', limit: 100, null: false
+    t.integer 'sort_number'
+    t.integer 'recipe_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "steps", force: :cascade do |t|
-    t.text "description", null: false
-    t.integer "step_number", null: false
-    t.integer "section_id", null: false
-    t.integer "recipe_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'steps', force: :cascade do |t|
+    t.text 'description', null: false
+    t.integer 'step_number', null: false
+    t.integer 'section_id', null: false
+    t.integer 'recipe_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "subcategories", force: :cascade do |t|
-    t.string "name", limit: 100, null: false
-    t.integer "category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'subcategories', force: :cascade do |t|
+    t.string 'name', limit: 100, null: false
+    t.integer 'category_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name", limit: 100, null: false
-    t.string "color", limit: 20, default: "#FFFFFF", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'tags', force: :cascade do |t|
+    t.string 'name', limit: 100, null: false
+    t.string 'color', limit: 20, default: '#FFFFFF', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "uoms", force: :cascade do |t|
-    t.string "name", limit: 100, null: false
-    t.string "base_unit", limit: 100, null: false
-    t.string "system", limit: 10, null: false
-    t.float "conversion"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "short_name", limit: 10
+  create_table 'uoms', force: :cascade do |t|
+    t.string 'name', limit: 100, null: false
+    t.string 'base_unit', limit: 100, null: false
+    t.string 'system', limit: 10, null: false
+    t.float 'conversion'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'short_name', limit: 10
   end
-
 end

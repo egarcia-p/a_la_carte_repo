@@ -1,8 +1,8 @@
 class CreateRecipeTags < ActiveRecord::Migration[6.1]
   def up
-    create_table :recipe_tags, :id => false do |t|
-      t.integer :recipe_id, :null => false
-      t.integer :tag_id, :null => false
+    create_table :recipe_tags, id: false do |t|
+      t.integer :recipe_id, null: false
+      t.integer :tag_id, null: false
 
       t.timestamps
     end
