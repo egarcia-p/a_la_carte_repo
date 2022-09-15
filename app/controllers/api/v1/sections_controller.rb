@@ -157,26 +157,32 @@ module Api
         save_succeeded
       end
 
-      def save_equipments(section) # rubocop:todo Metrics/MethodLength
+      def save_equipments(record, section_obj) # rubocop:todo Metrics/MethodLength
         save_succeeded = true
 
-        return true unless section[:recipe_equipments].present?
+        #return true unless section[:recipe_equipments].present?
 
-        section[:recipe_equipments].each do |recipe_equipment|
-          recipeEquipmentObj = RecipeEquipment.find_by_id(recipe_equipment[:id]) # rubocop:todo Naming/VariableName
-          if recipeEquipmentObj # rubocop:todo Naming/VariableName
-            # rubocop:todo Naming/VariableName
-            save_succeeded = false unless recipeEquipmentObj.update(recipe_equipment_params(recipe_equipment))
-            # rubocop:enable Naming/VariableName
-            tr = recipe_equipment # rubocop:todo Lint/UselessAssignment
-          else
-            recipe_equipment[:section_id] = section[:id]
-            tr = RecipeEquipment.new(recipe_equipment_params(recipe_equipment))
-            save_succeeded = false unless tr.save
+        updated_recipe_equipment_ids = []
+
+        if record[:recipe_equipments].present?
+          record[:recipe_equipments].each do |recipe_equipment|
+            recipe_equipment_obj = RecipeEquipment.find_by_id(recipe_equipment[:id])
+            if recipe_equipment_obj
+              save_succeeded = false unless recipe_equipment_obj.update(recipe_equipment_params(recipe_equipment))
+              tr = recipe_equipment_obj
+            else
+              recipe_equipment[:section_id] = record[:id]
+              tr = RecipeEquipment.new(recipe_equipment_params(recipe_equipment))
+              save_succeeded = false unless tr.save
+            end
+
+            # save array of recipe ingredient ids created/updated
+            updated_recipe_equipment_ids << tr.id
           end
-
-          # @targetrecords << tr
         end
+
+        # clean recipe_ingredients
+        section_obj.remove_recipe_equipments(updated_recipe_equipment_ids)
 
         save_succeeded
       end
