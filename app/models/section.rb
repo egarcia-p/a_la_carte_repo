@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Section Model Class for Recipes
 class Section < ApplicationRecord
   belongs_to :recipe
 

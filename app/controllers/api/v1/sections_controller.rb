@@ -157,10 +157,10 @@ module Api
         save_succeeded
       end
 
-      def save_equipments(record, section_obj) # rubocop:todo Metrics/MethodLength
+      def save_equipments(record, section_obj) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
         save_succeeded = true
 
-        #return true unless section[:recipe_equipments].present?
+        # return true unless section[:recipe_equipments].present?
 
         updated_recipe_equipment_ids = []
 
