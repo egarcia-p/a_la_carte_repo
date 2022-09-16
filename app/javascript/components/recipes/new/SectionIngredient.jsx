@@ -30,15 +30,22 @@ const SectionIngredient = (props) => {
     return <button onClick={onNewIngredientClick}>Add a new ingredient</button>;
   };
 
+  const DeleteIngredientButton = (pr) => {
+    const handleClick = () => {
+      pr.onButtonClick(pr.ingredientIndex);
+    };
+    return <button onClick={handleClick}>Delete Ingredient</button>;
+  };
+
   function onNewIngredientClick() {
     const newIngredient = {
       recipe_id: section.recipe_id,
       ingredient_id: "",
       uom_id: "",
       quantity: 1,
-      section_id: section.id
+      section_id: section.id,
     };
-    
+
     const sectionsMapCopy = new Map(props.sectionsMap); // Get a copy of the sections array
 
     const newSection = {
@@ -49,8 +56,31 @@ const SectionIngredient = (props) => {
       steps: section.steps,
       recipe_ingredients: [...section.recipe_ingredients, newIngredient],
     };
-    sectionsMapCopy.set(sectionIndex,newSection)
-    
+    sectionsMapCopy.set(sectionIndex, newSection);
+
+    setSectionsMap(sectionsMapCopy);
+  }
+
+  function onIngredientDeleteClick(recipeIngredientIndex) {
+    //todo get index
+    const index = recipeIngredientIndex;
+    console.log(`Index: ${index}`);
+
+    const newIngredients = [...section.recipe_ingredients];
+    newIngredients.splice(index, 1);
+    console.log(newIngredients);
+
+    const sectionsMapCopy = new Map(props.sectionsMap); // Get a copy of the sections array
+
+    const newSection = {
+      id: section.id,
+      name: section.name,
+      recipe_id: section.recipe_id,
+      sort_number: section.sort_number,
+      recipe_ingredients: newIngredients,
+    };
+    sectionsMapCopy.set(sectionIndex, newSection);
+
     setSectionsMap(sectionsMapCopy);
   }
 
@@ -86,17 +116,20 @@ const SectionIngredient = (props) => {
       <AddIngredientButton />
       <div className="ingredients">
         {section.recipe_ingredients.map((ingredient, index) => (
-            <RecipeIngredient 
-            key={index}
-            recipe_ingredient={ingredient}
-            section={section}
-            sectionIndex={sectionIndex}
-            ingredientIndex={index}
-            sectionsMap={props.sectionsMap}
-            setSectionsMap={setSectionsMap}
-            listIngredients={listIngredients}
-            listUoms={listUoms}
+          <div key={index} className="recipe_ingredient">
+            <RecipeIngredient
+              key={index}
+              recipe_ingredient={ingredient}
+              section={section}
+              sectionIndex={sectionIndex}
+              ingredientIndex={index}
+              sectionsMap={props.sectionsMap}
+              setSectionsMap={setSectionsMap}
+              listIngredients={listIngredients}
+              listUoms={listUoms}
             ></RecipeIngredient>
+            <DeleteIngredientButton onButtonClick={onIngredientDeleteClick} ingredientIndex={index}></DeleteIngredientButton>
+          </div>
         ))}
       </div>
     </div>

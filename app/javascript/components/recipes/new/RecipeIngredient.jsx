@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Select from "react-select";
 
@@ -17,6 +17,15 @@ const RecipeIngredient = (props) => {
   const [quantity, setQuantity] = useState(recipe_ingredient.quantity);
   const [uomId, setUOMId] = useState(recipe_ingredient.uom_id);
   const [uom, setUOM] = useState(listUoms.find((uom) => uom.id === recipe_ingredient.uom_id));
+
+  
+  useEffect(() => {
+    setIngredientId(recipe_ingredient.ingredient_id);
+    setIngredient(recipe_ingredient.ingredient);
+    setQuantity(recipe_ingredient.quantity);
+    setUOMId(recipe_ingredient.uom_id);
+    setUOM(recipe_ingredient.uom);
+  }, [props.recipe_ingredient])
 
   const updateValueIngredientId = (selectedOption) => {
     const value = selectedOption.id;
