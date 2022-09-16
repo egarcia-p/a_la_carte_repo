@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const RecipeEquipment = (props) => {
@@ -12,6 +12,12 @@ const RecipeEquipment = (props) => {
   );
   const [quantity, setQuantity] = useState(recipe_equipment.quantity);
   const [uomId, setUOMId] = useState(recipe_equipment.uom_id);
+
+  useEffect(() => {
+    setEquipmentId(recipe_equipment.equipment_id);
+    setQuantity(recipe_equipment.quantity);
+    setUOMId(recipe_equipment.uom_id);
+  }, [props.recipe_equipment])
 
   const updateValueEquipmentId = (e) => {
     const value = e.target.value;
