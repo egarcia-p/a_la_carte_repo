@@ -3,6 +3,7 @@ module Secured
     extend ActiveSupport::Concern
   
     SCOPES = {
+      '/api/v1/categories/index' => nil,
       '/api/private'    => nil,
       '/api/private-scoped' => ['read']
     }

@@ -3,6 +3,8 @@
 module Api
   module V1
     class CategoriesController < ApplicationController # rubocop:todo Style/Documentation
+      include Secured
+
       def index
         categories = Category.all.order(id: :asc)
         render json: categories
