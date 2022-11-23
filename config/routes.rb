@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
+  
+
+  get 'api/public', to: 'public#public'
+  get 'api/private', to: 'private#private'
+  get 'api/private_scoped', to: 'private#private_scoped'
+  
   namespace :api do
     namespace :v1 do
       get 'recipes/index'
