@@ -1,6 +1,7 @@
 # lib/json_web_token.rb
 
 # frozen_string_literal: true
+
 require 'net/http'
 require 'uri'
 
@@ -18,7 +19,7 @@ class JsonWebToken
   end
 
   def self.jwks_hash
-    jwks_raw = Net::HTTP.get URI("https://dev-gcxsr88f47sqjgcs.us.auth0.com/.well-known/jwks.json")
+    jwks_raw = Net::HTTP.get URI('https://dev-gcxsr88f47sqjgcs.us.auth0.com/.well-known/jwks.json')
     jwks_keys = Array(JSON.parse(jwks_raw)['keys'])
     Hash[
       jwks_keys
