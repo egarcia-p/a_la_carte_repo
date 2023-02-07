@@ -3,6 +3,8 @@
 module Api
   module V1
     class IngredientsController < ApplicationController # rubocop:todo Style/Documentation
+      include Secured
+
       def index
         ingredients = Ingredient.all.order(id: :asc)
         render json: ingredients

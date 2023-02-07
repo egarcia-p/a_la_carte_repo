@@ -3,6 +3,8 @@
 module Api
   module V1
     class UomsController < ApplicationController # rubocop:todo Style/Documentation
+      include Secured
+
       def index
         uoms = Uom.all.order(id: :asc)
         render json: uoms

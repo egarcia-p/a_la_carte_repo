@@ -13,13 +13,13 @@ module Secured
     'recipes/show/:id' => ['read:recipe'],
     'recipes/destroy/:id' => ['delete:recipe'],
     'sections/create' => ['create:recipe'],
-    'sections/save_multiple' => ['create:recipe','update:recipe'],
+    'sections/save_multiple' => ['create:recipe', 'update:recipe'],
     'sections/edit/:id' => ['update:recipe'],
     'sections/find_by_recipe_id/:id' => ['read:recipe'],
     'sections/update/:id' => ['update:recipe'],
     'sections/destroy/:id' => ['delete:recipe'],
     'steps/create' => ['create:recipe'],
-    'steps/edit/:id' => ['create:recipe','update:recipe'],
+    'steps/edit/:id' => ['create:recipe', 'update:recipe'],
     'steps/find_by_recipe_id/:id' => ['read:recipe'],
     'steps/find_by_section_id/:id' => ['read:recipe'],
     'steps/update/:id' => ['update:recipe'],
@@ -48,7 +48,7 @@ module Secured
     'uoms/create' => ['create:uom'],
     'uoms/edit/:id' => ['update:uom'],
     'uoms/update/:id' => ['update:uom'],
-    'uoms/destroy/:id' => ['delete:uom'],
+    'uoms/destroy/:id' => ['delete:uom']
   }.freeze
 
   included do

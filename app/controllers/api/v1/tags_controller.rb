@@ -3,6 +3,8 @@
 module Api
   module V1
     class TagsController < ApplicationController # rubocop:todo Style/Documentation
+      include Secured
+
       def index
         tags = Tag.all.order(id: :asc)
         render json: tags

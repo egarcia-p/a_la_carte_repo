@@ -3,6 +3,8 @@
 module Api
   module V1
     class SubcategoriesController < ApplicationController # rubocop:todo Style/Documentation
+      include Secured
+
       def index
         subcategories = Subcategory.all.order(id: :asc)
         render json: subcategories

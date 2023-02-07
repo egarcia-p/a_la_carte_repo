@@ -4,6 +4,8 @@
 module Api
   module V1
     class SectionsController < ApplicationController # rubocop:todo Metrics/ClassLength, Style/Documentation
+      include Secured
+
       # rubocop:enable Style/Documentation
       %i[recipe_id].each do |attribute|
         define_method :"find_by_#{attribute}" do

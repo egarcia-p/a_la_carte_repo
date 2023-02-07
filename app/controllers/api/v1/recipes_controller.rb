@@ -3,6 +3,8 @@
 module Api
   module V1
     class RecipesController < ApplicationController # rubocop:todo Style/Documentation
+      include Secured
+
       def index
         recipe = Recipe.all.order(created_at: :desc)
         render json: recipe

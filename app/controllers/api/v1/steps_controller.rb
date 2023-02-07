@@ -3,6 +3,8 @@
 module Api
   module V1
     class StepsController < ApplicationController # rubocop:todo Style/Documentation
+      include Secured
+
       %i[section_id recipe_id].each do |attribute|
         define_method :"find_by_#{attribute}" do
           steps = Step.find_by("#{attribute}": params[:id])
