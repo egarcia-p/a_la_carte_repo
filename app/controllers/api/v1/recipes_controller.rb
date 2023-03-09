@@ -3,11 +3,13 @@
 module Api
   module V1
     class RecipesController < ApplicationController # rubocop:todo Style/Documentation
-      include Secured
+      before_action :authorize
 
       def index
-        recipe = Recipe.all.order(created_at: :desc)
-        render json: recipe
+        validate_permissions ['read:recipe'] do
+          recipe = Recipe.all.order(created_at: :desc)
+          render json: recipe
+        end
       end
 
       def create

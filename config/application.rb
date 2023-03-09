@@ -39,5 +39,7 @@ module ALaCarteReact
 
     config.autoload_paths << "#{Rails.root}/lib"
 
+    config.api_only = true
+    config.auth0 = config_for(:auth0)
   end
 end
