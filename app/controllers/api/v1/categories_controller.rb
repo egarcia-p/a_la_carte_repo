@@ -3,11 +3,13 @@
 module Api
   module V1
     class CategoriesController < ApplicationController # rubocop:todo Style/Documentation
-      include Secured
+      before_action :authorize
 
       def index
-        categories = Category.all.order(id: :asc)
-        render json: categories
+        validate_permissions ['read:category'] do
+          categories = Category.all.order(id: :asc)
+          render json: categories
+        end
       end
 
       def create
@@ -38,8 +40,10 @@ module Api
       end
 
       def destroy
-        category&.destroy
-        render json: { message: 'Category deleted!' }
+        validate_permissions ['delete:category'] do
+          category&.destroy
+          render json: { message: 'Category deleted!' }
+        end
       end
 
       private
