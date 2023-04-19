@@ -13,11 +13,13 @@ module Api
       end
 
       def create
-        category = Category.create!(category_params)
-        if category
-          render json: category
-        else
-          render json: category.errors
+        validate_permissions ['create:category'] do
+          category = Category.create!(category_params)
+          if category
+            render json: category
+          else
+            render json: category.errors
+          end
         end
       end
 
