@@ -24,20 +24,24 @@ module Api
       end
 
       def edit
-        category = Category.find(params[:id])
-        if category
-          render json: category
-        else
-          render json: category.errors
+        validate_permissions ['update:category'] do
+          category = Category.find(params[:id])
+          if category
+            render json: category
+          else
+            render json: category.errors
+          end
         end
       end
 
       def update
-        category = Category.find(params[:id])
-        if category.update(category_params)
-          render json: category
-        else
-          render json: category.errors
+        validate_permissions ['update:category'] do
+          category = Category.find(params[:id])
+          if category.update(category_params)
+            render json: category
+          else
+            render json: category.errors
+          end
         end
       end
 
