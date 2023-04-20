@@ -13,11 +13,13 @@ module Api
       end
 
       def create
-        recipe = Recipe.create!(recipe_params)
-        if recipe
-          render json: recipe
-        else
-          render json: recipe.errors
+        validate_permissions ['create:recipe'] do
+          recipe = Recipe.create!(recipe_params)
+          if recipe
+            render json: recipe
+          else
+            render json: recipe.errors
+          end
         end
       end
 
