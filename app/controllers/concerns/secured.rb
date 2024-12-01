@@ -3,7 +3,7 @@
 # Module that manages the scopes and jwt verification
 module Secured
   extend ActiveSupport::Concern
-  #TODO DELETE SCOPES FORM HERE
+  # TODO: DELETE SCOPES FORM HERE
   SCOPES = {
     '/api/v1/categories/index' => nil,
     '/api/private' => nil,

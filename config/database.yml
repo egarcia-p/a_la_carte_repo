@@ -22,13 +22,13 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
   port: <%= ENV.fetch("DATABASE_PORT") { 5432 } %>
-  database: <%= ENV['DB_NAME'] %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
 
 development:
   <<: *default
-  # database: a_la_carte_react_development
+  database: a_la_carte_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

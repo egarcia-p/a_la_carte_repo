@@ -17,9 +17,33 @@ Bundle Install
 
 - Configuration
 
+Create the env file depending on the environment
+eg `.env.development`
+
+Add the following properties:
+
+```BASH
+POSTGRES_USER=<USER>
+POSTGRES_PASSWORD=<PASS>
+POSTGRES_DB=<DB NAME>
+
+```
+
 - Database creation
 
+Boot the DB with docker compose
+`docker compose up`
+
 - Database initialization
+
+Try to create the db if not created already:
+`rake db:create`
+
+Then Migrate:
+`rake db:migrate`
+
+Finally seed the DB with the following command:
+`rake db:seed`
 
 - How to run the test suite
 

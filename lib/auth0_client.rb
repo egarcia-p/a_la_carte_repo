@@ -5,7 +5,7 @@ require 'net/http'
 
 # Auth0Client class to handle JWT token validation
 class Auth0Client
-  # Auth0 Client Objects 
+  # Auth0 Client Objects
   Error = Struct.new(:message, :status)
   Response = Struct.new(:decoded_token, :error)
   Token = Struct.new(:token) do
@@ -14,12 +14,12 @@ class Auth0Client
       scopes = token[0]['scope']
       p "Scopes in token: #{scopes}"
       p "Scopes needed: #{required_permissions}"
-      token_permissions = scopes.present? ? Set.new(scopes.split(" ")) : Set.new
+      token_permissions = scopes.present? ? Set.new(scopes.split(' ')) : Set.new
       required_permissions <= token_permissions
     end
   end
 
-  # Helper Functions 
+  # Helper Functions
   def self.domain_url
     "https://#{Rails.configuration.auth0.domain}/"
   end
@@ -41,7 +41,7 @@ class Auth0Client
     Net::HTTP.get_response jwks_uri
   end
 
-  # Token Validation 
+  # Token Validation
   def self.validate_token(token)
     jwks_response = get_jwks
 
@@ -55,7 +55,7 @@ class Auth0Client
     decoded_token = decode_token(token, jwks_hash)
 
     Response.new(Token.new(decoded_token), nil)
-  rescue JWT::VerificationError, JWT::DecodeError => e
+  rescue JWT::VerificationError, JWT::DecodeError
     error = Error.new('Bad credentials3', :unauthorized)
     Response.new(nil, error)
   end

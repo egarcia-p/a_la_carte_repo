@@ -1,0 +1,41 @@
+services:
+  # frontend:
+  #   image: "docker-nextjs-asms:latest"
+  #   build:
+  #     context: frontend
+  #   container_name: frontend-nextjs
+  #   depends_on:
+  #     - backend
+  #   env_file:
+  #     - "frontend/.env.development"
+  #   develop:
+  #     watch:
+  #       - action: sync
+  #         path: ./frontend/src
+  #         target: /app/src
+
+  #       - action: rebuild
+  #         path: package.json
+  #         target: /app
+  #   ports:
+  #     - "3000:3000"
+
+  # backend:
+  #   image: "docker-spring-boot-asms:latest"
+  #   build:
+  #     context: backend
+  #   container_name: backend-spring
+  #   depends_on:
+  #     - db
+  #   env_file:
+  #     - ".env.development"
+  #   ports:
+  #     - "8080:8080"
+
+  db:
+    image: postgres
+    container_name: db
+    env_file:
+      - ".env.development"
+    ports:
+      - "5432:5432"
