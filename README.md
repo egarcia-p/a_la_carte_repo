@@ -51,4 +51,16 @@ Finally seed the DB with the following command:
 
 - Deployment instructions
 
-- ...
+- Auth0 Code Flow
+
+This projects API uses codeflow with Auth0.
+See more info [here](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/add-login-auth-code-flow)
+See api prereqs [here](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/call-your-api-using-the-authorization-code-flow)
+
+Essentially,
+
+1. the front end initiates the authentication code flow with authorize?
+2. Then a code is sent back as url param
+3. This url parama "code" can be used to retrieve access token.
+4. Access token is stored a http only cookie to be used as bearer token.
+5. Backend validates access_token and permissions within. Responds accordingly, granted -> RESPONSE(200...) not granted 403 Forbidden.

@@ -95,8 +95,7 @@ module Secured
     render json: REQUIRES_AUTHENTICATION, status: :unauthorized and return unless authorization_header_elements
 
     unless authorization_header_elements.length == 2
-      render json: MALFORMED_AUTHORIZATION_HEADER,
-             status: :unauthorized and return
+      render json: MALFORMED_AUTHORIZATION_HEADER, status: :unauthorized and return
     end
 
     scheme, token = authorization_header_elements
