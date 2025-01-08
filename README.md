@@ -1,7 +1,6 @@
-# README
+# A La Carte
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a backend API that manages recipe information.
 
 Things you may want to cover:
 
@@ -44,6 +43,12 @@ Then Migrate:
 
 Finally seed the DB with the following command:
 `rake db:seed`
+
+# Run Development Environment
+
+Before running make sure the Database is running, see above how to run.
+
+`bin/rails s`
 
 - How to run the test suite
 
