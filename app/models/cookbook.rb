@@ -1,4 +1,5 @@
-class Cookbook < ApplicationRecord
-    belongs_to :user
+# frozen_string_literal: true
 
+class Cookbook < ApplicationRecord
+  belongs_to :user
 end

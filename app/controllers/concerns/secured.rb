@@ -88,10 +88,9 @@ module Secured
   end
 
   def user
+    sub = @decoded_token.token[0]['sub']
 
-    sub = @decoded_token.token[0]['sub']  
-
-    return User.find_by(sub: sub) || User.create(sub: sub)
+    User.find_by(sub: sub) || User.create(sub: sub)
   end
 
   private
@@ -111,6 +110,4 @@ module Secured
 
     token
   end
-
-  
 end
