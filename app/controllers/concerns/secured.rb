@@ -87,6 +87,13 @@ module Secured
     render json: INSUFFICIENT_PERMISSIONS, status: :forbidden
   end
 
+  def user
+
+    sub = @decoded_token.token[0]['sub']  
+
+    return User.find_by(sub: sub) || User.create(sub: sub)
+  end
+
   private
 
   def token_from_request
@@ -104,4 +111,6 @@ module Secured
 
     token
   end
+
+  
 end
