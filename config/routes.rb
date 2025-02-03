@@ -9,7 +9,17 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
   
   namespace :api do
     namespace :v1 do
+      get 'cookbooks/index'
+      post 'cookbooks/create'
+      post 'cookbooks/edit/:id', to: 'cookbooks#edit'
+      delete 'cookbooks/destroy/:id', to: 'cookbooks#destroy'
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       get 'recipes/index'
+      get 'recipes/recipes_by_user'
+      get 'recipes/recipes_by_coobook'
       post 'recipes/create'
       get 'recipes/show/:id', to: 'recipes#show'
       delete 'recipes/destroy/:id', to: 'recipes#destroy'
