@@ -21,7 +21,7 @@ module Api
         end
       end
 
-      def recipes_by_coobook
+      def recipes_by_cookbook
         validate_permissions ['read:recipe'] do
           cookbook_id = params[:cookbook_id]
 

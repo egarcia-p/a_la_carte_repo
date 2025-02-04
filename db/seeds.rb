@@ -22,8 +22,8 @@ kg = Uom.new(name: 'kg', base_unit: 'g', system: 'metric')
 kg.save
 
 9.times do |i|
-  p 'Recipe 1'
-  rec = Recipe.new(title: "Recipe #{i + 1}", servings: 1, total_time: 60, author: 'EG')
+  p "Recipe #{i + 1}"
+  rec = Recipe.new(title: "Recipe #{i + 1}", servings: 1, total_time: 60, author: 'EG', user_id: 1, cookbook_id: 1)
   rec.category_id = category.id
   rec.subcategory_id = subcategory.id
 
