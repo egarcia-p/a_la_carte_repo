@@ -12,9 +12,29 @@ module Api
         end
       end
 
+      def recipes_by_user
+        validate_permissions ['read:recipe'] do
+          user = user()
+
+          recipe = Recipe.where(:user_id => user.id).order(created_at: :desc)
+          render json: recipe
+        end
+      end
+
+      def recipes_by_cookbook
+        validate_permissions ['read:recipe'] do
+          cookbook_id = params[:cookbook_id]
+
+          recipe = Recipe.where(:cookbook_id => cookbook_id).order(created_at: :desc)
+          render json: recipe
+        end
+      end
+
       def create
         validate_permissions ['create:recipe'] do
-          recipe = Recipe.create!(recipe_params)
+          user = user()
+
+          recipe = Recipe.create!(recipe_params.merge(user_id: user.id))
           if recipe
             render json: recipe
           else
@@ -48,7 +68,7 @@ module Api
       private
 
       def recipe_params
-        params.permit(:title, :subtitle, :servings, :total_time, :author, :category_id, :subcategory_id)
+        params.permit(:title, :subtitle, :servings, :total_time, :author, :category_id, :subcategory_id, :cookbook_id)
       end
 
       def recipe

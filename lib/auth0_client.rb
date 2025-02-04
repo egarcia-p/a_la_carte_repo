@@ -5,9 +5,8 @@
 require 'jwt'
 require 'net/http'
 
-class Auth0Client 
-
-  # Auth0 Client Objects 
+class Auth0Client
+  # Auth0 Client Objects
   Error = Struct.new(:message, :status)
   Response = Struct.new(:decoded_token, :error)
 
@@ -20,7 +19,7 @@ class Auth0Client
     end
   end
 
-  # Helper Functions 
+  # Helper Functions
   def self.domain_url
     "https://#{Rails.configuration.auth0.domain}/"
   end
@@ -41,7 +40,7 @@ class Auth0Client
     Net::HTTP.get_response jwks_uri
   end
 
-  # Token Validation 
+  # Token Validation
   def self.validate_token(token)
     jwks_response = get_jwks
 
@@ -55,7 +54,7 @@ class Auth0Client
     decoded_token = decode_token(token, jwks_hash)
 
     Response.new(Token.new(decoded_token), nil)
-  rescue JWT::VerificationError, JWT::DecodeError => e
+  rescue JWT::VerificationError, JWT::DecodeError
     error = Error.new('Bad credentials', :unauthorized)
     Response.new(nil, error)
   end
