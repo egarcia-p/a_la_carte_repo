@@ -6,5 +6,4 @@ class Step < ApplicationRecord
   validates :description,
             length: { maximum: 100 }
   validates :step_number, presence: true
-  validates :section_id, presence: true
 end
