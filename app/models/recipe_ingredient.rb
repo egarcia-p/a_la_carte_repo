@@ -8,5 +8,4 @@ class RecipeIngredient < ApplicationRecord
   validates :ingredient_id, presence: true
   validates :quantity, presence: true
   validates :uom_id, presence: true
-  validates :section_id, presence: true
 end

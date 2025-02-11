@@ -2,8 +2,6 @@
 
 This is a backend API that manages recipe information.
 
-Things you may want to cover:
-
 - Ruby version
 
 Make sure to install latest version of ruby 2.7.\*
@@ -69,3 +67,18 @@ Essentially,
 3. This url parama "code" can be used to retrieve access token.
 4. Access token is stored a http only cookie to be used as bearer token.
 5. Backend validates access_token and permissions within. Responds accordingly, granted -> RESPONSE(200...) not granted 403 Forbidden.
+
+# Rails Generate commands
+
+To generate models, controllers, migrationssee below commands, there are more examples in Rails documentation
+
+```BASH
+
+rails g model Cookbook name:string user_id:User is_favorite:boolean
+
+rails g model User sub:string
+
+rails g controller Cookbook index create edit destroy
+
+bin/rails generate migration AddCookbookAndUserIdToRecipe
+```
