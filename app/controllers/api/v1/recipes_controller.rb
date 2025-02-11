@@ -30,12 +30,27 @@ module Api
         end
       end
 
+      
+
+
+      # Example of json body to create a recipe
+      # {
+      #   "title": "Recipe title",
+      #   "subtitle": "Recipe subtitle",
+      #   "servings": 4,
+      #   "total_time": 60,
+      #   "author": "Recipe author",
+      #   "category_id": 1,
+      #   "subcategory_id": 1,
+      #   "cookbook_id": 1
+      # }
       def create
         validate_permissions ['create:recipe'] do
           user = user()
 
           recipe = Recipe.create!(recipe_params.merge(user_id: user.id))
-          if recipe
+
+          if recipe.save
             render json: recipe
           else
             render json: recipe.errors
@@ -68,7 +83,15 @@ module Api
       private
 
       def recipe_params
-        params.permit(:title, :subtitle, :servings, :total_time, :author, :category_id, :subcategory_id, :cookbook_id)
+        params.require(:recipe).permit(
+          :title, :subtitle, :servings, :total_time, :author, :category_id, :subcategory_id, :cookbook_id,
+          sections_attributes: [
+            :name, :sort_number, :_destroy,
+            steps_attributes: [:description, :step_number, :_destroy],
+            recipe_ingredients_attributes: [:ingredient_id, :quantity, :uom_id, :_destroy]
+          ]
+        )
+        #params.permit(:title, :subtitle, :servings, :total_time, :author, :category_id, :subcategory_id, :cookbook_id)
       end
 
       def recipe

@@ -1,0 +1,33 @@
+{
+  "title": "Recipe title",
+  "subtitle": "Recipe subtitle",
+  "servings": 4,
+  "total_time": 60,
+  "author": "Recipe author",
+  "category_id": 1,
+  "subcategory_id": 1,
+  "cookbook_id": 1,
+  "sections_attributes": [
+    {
+      "name": "Section name",
+      "sort_number": 1,
+      "recipe_ingredients_attributes": [
+        {
+          "ingredient_id": 1,
+          "quantity": 1,
+          "uom_id": 1
+        }
+      ],
+      "steps_attributes": [
+        {
+          "description": "Step description",
+          "step_number": 1
+        },
+        {
+          "description": "Step description 2",
+          "step_number": 2
+        }
+      ]
+    }
+  ]
+}
