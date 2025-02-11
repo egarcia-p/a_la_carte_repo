@@ -16,7 +16,7 @@ module Api
         validate_permissions ['read:recipe'] do
           user = user()
 
-          recipe = Recipe.where(:user_id => user.id).order(created_at: :desc)
+          recipe = Recipe.where(user_id: user.id).order(created_at: :desc)
           render json: recipe
         end
       end
@@ -25,7 +25,7 @@ module Api
         validate_permissions ['read:recipe'] do
           cookbook_id = params[:cookbook_id]
 
-          recipe = Recipe.where(:cookbook_id => cookbook_id).order(created_at: :desc)
+          recipe = Recipe.where(cookbook_id: cookbook_id).order(created_at: :desc)
           render json: recipe
         end
       end
@@ -73,8 +73,8 @@ module Api
           :title, :subtitle, :servings, :total_time, :author, :category_id, :subcategory_id, :cookbook_id,
           sections_attributes: [
             :name, :sort_number, :_destroy,
-            steps_attributes: [:description, :step_number, :_destroy],
-            recipe_ingredients_attributes: [:ingredient_id, :quantity, :uom_id, :_destroy]
+            { steps_attributes: %i[description step_number _destroy],
+              recipe_ingredients_attributes: %i[ingredient_id quantity uom_id _destroy] }
           ]
         )
       end
