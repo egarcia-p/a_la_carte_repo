@@ -9,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 p 'Enter'
 Category.create(name: 'Category 1')
-Subcategory.create(name: 'Category 1', category_id: 1)
+Subcategory.create(name: 'SubCategory 1', category_id: 1)
 
 category = Category.first
 subcategory = Subcategory.first
