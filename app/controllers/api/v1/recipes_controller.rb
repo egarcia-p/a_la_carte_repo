@@ -45,11 +45,21 @@ module Api
       end
 
       def edit
-        recipe = Recipe.find(params[:id])
-        if recipe
-          render json: recipe
-        else
-          render json: recipe.errors
+        validate_permissions ['create:recipe', 'edit:recipe'] do
+          recipe = Recipe.find(params[:id])
+          user = user()
+
+          if(recipe.user_id != user.id)
+            render json: "Cannot edit other users recipes"
+          end
+
+          recipe = recipe.update(recipe_params_edit.merge(user_id: user.id))
+
+          if recipe.save
+            render json: recipe
+          else
+            render json: recipe.errors
+          end
         end
       end
 
@@ -75,6 +85,17 @@ module Api
             :name, :sort_number, :_destroy,
             { steps_attributes: %i[description step_number _destroy],
               recipe_ingredients_attributes: %i[ingredient_id quantity uom_id _destroy] }
+          ]
+        )
+      end
+
+      def recipe_params_edit
+        params.require(:recipe).permit(
+          :title, :subtitle, :servings, :total_time, :author, :category_id, :subcategory_id, :cookbook_id,
+          sections_attributes: [
+            :id, :name, :sort_number, :_destroy,
+            { steps_attributes: %i[id description step_number _destroy],
+              recipe_ingredients_attributes: %i[id ingredient_id quantity uom_id _destroy] }
           ]
         )
       end
