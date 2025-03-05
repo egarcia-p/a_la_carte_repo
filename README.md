@@ -80,5 +80,8 @@ rails g model User sub:string
 
 rails g controller Cookbook index create edit destroy
 
+SPRING in some cases causes issues with migrations to disable use this command
+export DISABLE_SPRING=true
+
 bin/rails generate migration AddCookbookAndUserIdToRecipe
 ```
