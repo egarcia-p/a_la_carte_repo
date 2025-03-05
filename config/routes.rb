@@ -11,7 +11,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
     namespace :v1 do
       get 'cookbooks/index'
       post 'cookbooks/create'
-      post 'cookbooks/edit/:id', to: 'cookbooks#edit'
+      put 'cookbooks/edit/:id', to: 'cookbooks#edit'
       delete 'cookbooks/destroy/:id', to: 'cookbooks#destroy'
     end
   end
@@ -21,7 +21,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
       get 'recipes/recipes_by_user'
       get 'recipes/recipes_by_cookbook/:cookbook_id', to: 'recipes#recipes_by_cookbook'
       post 'recipes/create'
-      post 'recipes/edit/:id', to: 'recipes#edit'
+      put 'recipes/edit/:id', to: 'recipes#edit'
       get 'recipes/show/:id', to: 'recipes#show'
       delete 'recipes/destroy/:id', to: 'recipes#destroy'
     end

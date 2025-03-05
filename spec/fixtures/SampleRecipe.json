@@ -1,4 +1,5 @@
 {
+  "id": 9,
   "title": "Recipe title",
   "subtitle": "Recipe subtitle",
   "servings": 4,
@@ -9,23 +10,22 @@
   "cookbook_id": 1,
   "sections_attributes": [
     {
+      "id": 27,
       "name": "Section name",
       "sort_number": 1,
       "recipe_ingredients_attributes": [
         {
+          "id": 44,
           "ingredient_id": 1,
-          "quantity": 1,
+          "quantity": 44,
           "uom_id": 1
         }
       ],
       "steps_attributes": [
         {
+          "id": 41,
           "description": "Step description",
           "step_number": 1
-        },
-        {
-          "description": "Step description 2",
-          "step_number": 2
         }
       ]
     }

@@ -50,12 +50,11 @@ module Api
           user = user()
 
           if(recipe.user_id != user.id)
-            render json: "Cannot edit other users recipes"
+            render json: 'Cannot edit other users recipes'
           end
 
-          recipe = recipe.update(recipe_params_edit.merge(user_id: user.id))
-
-          if recipe.save
+          # validate if recipe was updated
+          if recipe.update(recipe_params_edit.merge(user_id: user.id))
             render json: recipe
           else
             render json: recipe.errors

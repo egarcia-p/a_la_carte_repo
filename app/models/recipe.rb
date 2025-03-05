@@ -3,7 +3,7 @@
 class Recipe < ApplicationRecord
   has_many :recipe_tags
   has_many :tags, through: :recipe_tags
-  has_many :sections
+  has_many :sections, dependent: :destroy
   has_many :steps, through: :sections
   has_many :recipe_ingredients, through: :sections
   has_many :ingredients, through: :recipe_ingredients
