@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_05_203427) do
+ActiveRecord::Schema.define(version: 2025_03_05_205035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,7 +81,6 @@ ActiveRecord::Schema.define(version: 2025_03_05_203427) do
     t.integer "cookbook_id"
     t.integer "user_id"
     t.boolean "is_public", default: false
-    t.string "created_by", null: false
   end
 
   create_table "sections", force: :cascade do |t|
