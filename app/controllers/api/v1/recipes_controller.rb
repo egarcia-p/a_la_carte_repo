@@ -50,14 +50,14 @@ module Api
           user = user()
 
           if(recipe.user_id != user.id)
-            render json: 'Cannot edit other users recipes'
-          end
-
-          # validate if recipe was updated
-          if recipe.update(recipe_params_edit.merge(user_id: user.id))
-            render json: recipe
+            render json: { error: 'Cannot delete other users recipes' }, status: :forbidden
           else
-            render json: recipe.errors
+            # validate if recipe was updated
+            if recipe.update(recipe_params_edit.merge(user_id: user.id))
+              render json: recipe
+            else
+              render json: recipe.errors
+            end
           end
         end
       end
@@ -71,8 +71,16 @@ module Api
       end
 
       def destroy
-        recipe&.destroy
-        render json: { message: 'Recipe deleted!' }
+        user = user()
+
+        if(recipe.user_id != user.id)
+          render json: { error: 'Cannot delete other users recipes' }, status: :forbidden
+        else 
+          recipe&.destroy
+           render json: { message: 'Recipe deleted!' }
+        end
+
+        
       end
 
       private
