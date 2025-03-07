@@ -7,7 +7,7 @@ module Api
 
       def index
         validate_permissions ['read:recipe'] do
-          user = user()
+          user = current_user()
 
           cookbooks = Cookbook.where(user_id: user.id)
           render json: cookbooks
@@ -16,7 +16,7 @@ module Api
 
       def create
         validate_permissions ['create:recipe'] do
-          user = user()
+          user = current_user()
           cookbook = Cookbook.create!(cookbook_params.merge(user_id: user.id))
           if cookbook
             render json: cookbook

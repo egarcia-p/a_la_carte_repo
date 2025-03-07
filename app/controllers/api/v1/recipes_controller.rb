@@ -14,7 +14,7 @@ module Api
 
       def recipes_by_user
         validate_permissions ['read:recipe'] do
-          user = user()
+          user = current_user()
 
           recipe = Recipe.where(user_id: user.id).order(created_at: :desc)
           render json: recipe
@@ -32,7 +32,7 @@ module Api
 
       def create
         validate_permissions ['create:recipe'] do
-          user = user()
+          user = current_user()
 
           recipe = Recipe.create!(recipe_params.merge(user_id: user.id))
 
@@ -47,7 +47,7 @@ module Api
       def edit
         validate_permissions ['create:recipe', 'edit:recipe'] do
           recipe = Recipe.find(params[:id])
-          user = user()
+          user = current_user()
 
           if(recipe.user_id != user.id)
             render json: { error: 'Cannot delete other users recipes' }, status: :forbidden
@@ -71,7 +71,7 @@ module Api
       end
 
       def destroy
-        user = user()
+        user = current_user()
 
         if(recipe.user_id != user.id)
           render json: { error: 'Cannot delete other users recipes' }, status: :forbidden

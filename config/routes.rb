@@ -76,6 +76,12 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
 
   namespace :api do
     namespace :v1 do
+      get 'users/show', to: 'users#show'
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
       post 'sections/create'
       post 'sections/save_multiple'
       get 'sections/edit/:id', to: 'sections#edit'
