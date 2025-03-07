@@ -35,19 +35,19 @@ kg.save
   p rec.errors.full_messages
   rec.save
 
-  step = Step.new(description: 'Oil the meat', step_number: 1, section_id: section.id, recipe_id: rec.id)
-  step2 = Step.new(description: 'Rub the meat', step_number: 2, section_id: section.id, recipe_id: rec.id)
-  rec.steps << step
-  rec.steps << step2
+  step = Step.new(description: 'Oil the meat', step_number: 1, section_id: section.id)
+  step2 = Step.new(description: 'Rub the meat', step_number: 2, section_id: section.id)
+  section.steps << step
+  section.steps << step2
 
   p "KG: #{kg.id}"
   p "section: #{section.id}"
 
-  rec.recipe_ingredients << RecipeIngredient.new(ingredient_id: meat.id, recipe_id: rec.id, quantity: 1, uom_id: kg.id, section_id: section.id)
-  rec.recipe_ingredients << RecipeIngredient.new(ingredient_id: oil.id, recipe_id: rec.id, quantity: 1, uom_id: kg.id, section_id: section.id)
-  rec.recipe_ingredients << RecipeIngredient.new(ingredient_id: paprika.id, recipe_id: rec.id, quantity: 1, uom_id: kg.id, section_id: section.id)
+  section.recipe_ingredients << RecipeIngredient.new(ingredient_id: meat.id, quantity: 1, uom_id: kg.id, section_id: section.id)
+  section.recipe_ingredients << RecipeIngredient.new(ingredient_id: oil.id,  quantity: 1, uom_id: kg.id, section_id: section.id)
+  section.recipe_ingredients << RecipeIngredient.new(ingredient_id: paprika.id,  quantity: 1, uom_id: kg.id, section_id: section.id)
 
-  p "Valid? #{rec.valid?}"
-  p rec.errors.full_messages
-  rec.save
+  p "Valid? #{section.valid?}"
+  p section.errors.full_messages
+  section.save
 end
