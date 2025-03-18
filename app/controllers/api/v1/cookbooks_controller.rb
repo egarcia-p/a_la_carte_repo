@@ -6,7 +6,7 @@ module Api
       before_action :authorize
 
       def index
-        validate_permissions ['read:recipe'] do
+        validate_permissions ['read:cookbook'] do
           user = current_user()
 
           cookbooks = Cookbook.where(user_id: user.id)
@@ -15,7 +15,7 @@ module Api
       end
 
       def create
-        validate_permissions ['create:recipe'] do
+        validate_permissions ['create:cookbook'] do
           user = current_user()
           cookbook = Cookbook.create!(cookbook_params.merge(user_id: user.id))
           if cookbook
@@ -27,19 +27,28 @@ module Api
       end
 
       def edit
-        cookbook = Cookbook.find(params[:id])
-        if cookbook
-          render json: cookbook
-        else
-          render json: cookbook.errors
+        validate_permissions ['create:cookbook'] do
+          cookbook = Cookbook.find(params[:id])
+          if cookbook
+            render json: cookbook
+          else
+            render json: cookbook.errors
+          end
         end
       end
 
       def destroy
-        cookbook = Cookbook.find(params[:id])
+        validate_permissions ['create:cookbook'] do
+          user = current_user()
+          cookbook = Cookbook.find(params[:id])
 
-        cookbook&.destroy
-        render json: { message: 'Cookbook deleted!' }
+          if(cookbook.user_id != user.id)
+            render json: { error: 'Cannot delete other users cookbook' }, status: :forbidden
+          else
+            cookbook&.destroy
+            render json: { message: 'Cookbook deleted!' }
+          end
+        end
       end
 
       private
