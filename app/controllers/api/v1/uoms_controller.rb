@@ -3,43 +3,53 @@
 module Api
   module V1
     class UomsController < ApplicationController # rubocop:todo Style/Documentation
-      include Secured
+      before_action :authorize
 
       def index
-        uoms = Uom.all.order(id: :asc)
-        render json: uoms
+        validate_permissions ['read:recipe'] do
+          uoms = Uom.all.order(id: :asc)
+          render json: uoms
+        end
       end
 
       def create
-        uom = Uom.create!(uom_params)
-        if uom
-          render json: uom
-        else
-          render json: uom.errors
+        validate_permissions ['create:uom'] do
+          uom = Uom.create!(uom_params)
+          if uom
+            render json: uom
+          else
+            render json: uom.errors
+          end
         end
       end
 
       def edit
-        uom = Uom.find(params[:id])
-        if uom
-          render json: uom
-        else
-          render json: uom.errors
+        validate_permissions ['create:uom'] do
+          uom = Uom.find(params[:id])
+          if uom
+            render json: uom
+          else
+            render json: uom.errors
+          end
         end
       end
 
       def update
-        uom = Uom.find(params[:id])
-        if uom.update(uom_params)
-          render json: uom
-        else
-          render json: uom.errors
+        validate_permissions ['create:uom'] do
+          uom = Uom.find(params[:id])
+          if uom.update(uom_params)
+            render json: uom
+          else
+            render json: uom.errors
+          end
         end
       end
 
       def destroy
-        uom&.destroy
-        render json: { message: 'Uom deleted!' }
+        validate_permissions ['delete:uom'] do
+          uom&.destroy
+          render json: { message: 'Uom deleted!' }
+        end
       end
 
       private
