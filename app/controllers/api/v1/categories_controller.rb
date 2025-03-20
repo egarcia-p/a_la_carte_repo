@@ -3,43 +3,53 @@
 module Api
   module V1
     class CategoriesController < ApplicationController # rubocop:todo Style/Documentation
-      include Secured
+      before_action :authorize
 
       def index
-        categories = Category.all.order(id: :asc)
-        render json: categories
+        validate_permissions ['read:recipe'] do
+          categories = Category.all.order(id: :asc)
+          render json: categories
+        end
       end
 
       def create
-        category = Category.create!(category_params)
-        if category
-          render json: category
-        else
-          render json: category.errors
+        validate_permissions ['create:category'] do
+          category = Category.create!(category_params)
+          if category
+            render json: category
+          else
+            render json: category.errors
+          end
         end
       end
 
       def edit
-        category = Category.find(params[:id])
-        if category
-          render json: category
-        else
-          render json: category.errors
+        validate_permissions ['create:category'] do
+          category = Category.find(params[:id])
+          if category
+            render json: category
+          else
+            render json: category.errors
+          end
         end
       end
 
       def update
-        category = Category.find(params[:id])
-        if category.update(category_params)
-          render json: category
-        else
-          render json: category.errors
+        validate_permissions ['create:category'] do
+          category = Category.find(params[:id])
+          if category.update(category_params)
+            render json: category
+          else
+            render json: category.errors
+          end
         end
       end
 
       def destroy
-        category&.destroy
-        render json: { message: 'Category deleted!' }
+        validate_permissions ['delete:category'] do
+          category&.destroy
+          render json: { message: 'Category deleted!' }
+        end
       end
 
       private
