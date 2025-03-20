@@ -13,11 +13,10 @@ module Api
         end
       end
 
-
       private
 
       def user
-        @user ||= current_user()
+        @user ||= current_user
       end
     end
   end

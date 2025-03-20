@@ -26,7 +26,7 @@ json.sections @recipe.sections do |section| # rubocop:todo Metrics/BlockLength
   json.recipe_ingredients do
     json.array!(section.recipe_ingredients.sort_by { |o| o[:id] }) do |recipe_ingredient|
       json.id recipe_ingredient.id
-       json.ingredient_id recipe_ingredient.ingredient_id
+      json.ingredient_id recipe_ingredient.ingredient_id
       json.name recipe_ingredient.ingredient.name
       json.uom_id recipe_ingredient.uom_id
       json.uom_name recipe_ingredient.uom.name

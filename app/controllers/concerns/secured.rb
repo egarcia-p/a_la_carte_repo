@@ -4,7 +4,6 @@
 module Secured
   extend ActiveSupport::Concern
 
-
   REQUIRES_AUTHENTICATION = { message: 'Requires authentication' }.freeze
   BAD_CREDENTIALS = {
     message: 'Bad credentials1 '
