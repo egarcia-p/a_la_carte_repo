@@ -3,43 +3,53 @@
 module Api
   module V1
     class IngredientsController < ApplicationController # rubocop:todo Style/Documentation
-      include Secured
+      before_action :authorize
 
       def index
-        ingredients = Ingredient.all.order(id: :asc)
-        render json: ingredients
+        validate_permissions ['read:recipe'] do
+          ingredients = Ingredient.all.order(id: :asc)
+          render json: ingredients
+        end
       end
 
       def create
-        ingredient = Ingredient.create!(ingredient_params)
-        if ingredient
-          render json: ingredient
-        else
-          render json: ingredient.errors
+        validate_permissions ['create:ingredient'] do
+          ingredient = Ingredient.create!(ingredient_params)
+          if ingredient
+            render json: ingredient
+          else
+            render json: ingredient.errors
+          end
         end
       end
 
       def edit
-        ingredient = Ingredient.find(params[:id])
-        if ingredient
-          render json: ingredient
-        else
-          render json: ingredient.errors
+        validate_permissions ['create:ingredient'] do
+          ingredient = Ingredient.find(params[:id])
+          if ingredient
+            render json: ingredient
+          else
+            render json: ingredient.errors
+          end
         end
       end
 
       def update
-        ingredient = Ingredient.find(params[:id])
-        if ingredient.update(ingredient_params)
-          render json: ingredient
-        else
-          render json: ingredient.errors
+        validate_permissions ['create:ingredient'] do
+          ingredient = Ingredient.find(params[:id])
+          if ingredient.update(ingredient_params)
+            render json: ingredient
+          else
+            render json: ingredient.errors
+          end
         end
       end
 
       def destroy
-        ingredient&.destroy
-        render json: { message: 'Ingredient deleted!' }
+        validate_permissions ['delete:ingredient'] do
+          ingredient&.destroy
+          render json: { message: 'Ingredient deleted!' }
+        end
       end
 
       private
