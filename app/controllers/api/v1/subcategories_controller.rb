@@ -3,43 +3,53 @@
 module Api
   module V1
     class SubcategoriesController < ApplicationController # rubocop:todo Style/Documentation
-      include Secured
+      before_action :authorize
 
       def index
-        subcategories = Subcategory.all.order(id: :asc)
-        render json: subcategories
+        validate_permissions ['read:recipe'] do
+          subcategories = Subcategory.all.order(id: :asc)
+          render json: subcategories
+        end
       end
 
       def create
-        subcategory = Subcategory.create!(subcategory_params)
-        if subcategory
-          render json: subcategory
-        else
-          render json: subcategory.errors
+        validate_permissions ['create:subcategory'] do
+          subcategory = Subcategory.create!(subcategory_params)
+          if subcategory
+            render json: subcategory
+          else
+            render json: subcategory.errors
+          end
         end
       end
 
       def edit
-        subcategory = Subcategory.find(params[:id])
-        if subcategory
-          render json: subcategory
-        else
-          render json: subcategory.errors
+        validate_permissions ['create:subcategory'] do
+          subcategory = Subcategory.find(params[:id])
+          if subcategory
+            render json: subcategory
+          else
+            render json: subcategory.errors
+          end
         end
       end
 
       def update
-        subcategory = Subcategory.find(params[:id])
-        if subcategory.update(subcategory_params)
-          render json: subcategory
-        else
-          render json: subcategory.errors
+        validate_permissions ['create:subcategory'] do
+          subcategory = Subcategory.find(params[:id])
+          if subcategory.update(subcategory_params)
+            render json: subcategory
+          else
+            render json: subcategory.errors
+          end
         end
       end
 
       def destroy
-        subcategory&.destroy
-        render json: { message: 'Subcategory deleted!' }
+        validate_permissions ['delete:subcategory'] do
+          subcategory&.destroy
+          render json: { message: 'Subcategory deleted!' }
+        end
       end
 
       private
