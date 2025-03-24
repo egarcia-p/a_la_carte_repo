@@ -7,6 +7,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 p 'Enter'
 Category.create(name: 'Category 1')
 Subcategory.create(name: 'SubCategory 1', category_id: 1)
@@ -14,12 +15,28 @@ Subcategory.create(name: 'SubCategory 1', category_id: 1)
 category = Category.first
 subcategory = Subcategory.first
 
+
+
 meat = Ingredient.create(name: 'Meat')
 oil = Ingredient.create(name: 'Oil')
 paprika = Ingredient.create(name: 'Paprika')
 
-kg = Uom.new(name: 'kg', base_unit: 'g', system: 'metric')
-kg.save
+# Seed UOMs
+Uom.create([
+  { name: 'gram', base_unit: 'gram', system: 'metric' },
+  { name: 'kilogram', base_unit: 'gram', system: 'metric' },
+  { name: 'milligram', base_unit: 'gram', system: 'metric' },
+  { name: 'microgram', base_unit: 'gram', system: 'metric' },
+  { name: 'liter', base_unit: 'liter', system: 'metric' },
+  { name: 'milliliter', base_unit: 'liter', system: 'metric' },
+  { name: 'cup', base_unit: 'cup', system: 'imperial' },
+  { name: 'ounce', base_unit: 'ounce', system: 'imperial' },
+  { name: 'pound', base_unit: 'ounce', system: 'imperial' },
+  { name: 'teaspoon', base_unit: 'teaspoon', system: 'imperial' },
+  { name: 'tablespoon', base_unit: 'teaspoon', system: 'imperial' }
+])
+
+kg = Uom.find_by(name: 'kilogram')
 
 9.times do |i|
   p "Recipe #{i + 1}"
