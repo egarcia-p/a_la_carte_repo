@@ -34,12 +34,16 @@ module Api
         validate_permissions ['create:recipe'] do
           user = current_user
 
-          recipe = Recipe.create!(recipe_params.merge(user_id: user.id))
+          ActiveRecord::Base.transaction do
+            new_params = add_ingredient_params(recipe_params)
 
-          if recipe.save
-            render json: recipe
-          else
-            render json: recipe.errors
+            recipe = Recipe.create!(new_params.merge(user_id: user.id))
+
+            if recipe.save
+              render json: recipe
+            else
+              render json: recipe.errors
+            end
           end
         end
       end
@@ -87,7 +91,7 @@ module Api
           sections_attributes: [
             :name, :sort_number, :_destroy,
             { steps_attributes: %i[description step_number _destroy],
-              recipe_ingredients_attributes: %i[ingredient_id quantity uom_id _destroy] }
+              recipe_ingredients_attributes: %i[ingredient_id fdc_id name quantity uom_id _destroy] }
           ]
         )
       end
@@ -98,13 +102,26 @@ module Api
           sections_attributes: [
             :id, :name, :sort_number, :_destroy,
             { steps_attributes: %i[id description step_number _destroy],
-              recipe_ingredients_attributes: %i[id ingredient_id quantity uom_id _destroy] }
+              recipe_ingredients_attributes: %i[id ingredient_id fdc_id name quantity uom_id _destroy] }
           ]
         )
       end
 
       def recipe
         @recipe ||= Recipe.includes(:sections).includes(:steps).find(params[:id])
+      end
+
+      def add_ingredient_recipe_params(params)
+        params[:sections_attributes].each do |section|
+          section[:recipe_ingredients_attributes].each do |ingredient|
+            ingredient_record = Ingredient.find_or_create_by_fdc_id(ingredient[:fdc_id], ingredient[:name])
+
+            ingredient[:ingredient_id] = ingredient_record.id
+            ingredient.delete(:fdc_id)
+            ingredient.delete(:name)
+          end
+        end
+        params
       end
     end
   end
