@@ -6,4 +6,5 @@ class Ingredient < ApplicationRecord
 
   validates :name, presence: true,
                    length: { maximum: 100 }
+  validates :fdc_id, uniqueness: true, allow_nil: true
 end
