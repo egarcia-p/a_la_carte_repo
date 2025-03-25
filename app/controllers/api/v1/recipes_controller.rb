@@ -53,13 +53,17 @@ module Api
           recipe = Recipe.find(params[:id])
           user = current_user
 
-          if recipe.user_id != user.id
-            render json: { error: 'Cannot delete other users recipes' }, status: :forbidden
-          elsif recipe.update(recipe_params_edit.merge(user_id: user.id))
-            # validate if recipe was updated
-            render json: recipe
-          else
-            render json: recipe.errors
+           ActiveRecord::Base.transaction do
+            new_params = add_ingredient_params(recipe_params_edit)
+
+            if recipe.user_id != user.id
+              render json: { error: 'Cannot delete other users recipes' }, status: :forbidden
+            elsif recipe.update(new_params.merge(user_id: user.id))
+              # validate if recipe was updated
+              render json: recipe
+            else
+              render json: recipe.errors
+            end
           end
         end
       end
@@ -111,7 +115,7 @@ module Api
         @recipe ||= Recipe.includes(:sections).includes(:steps).find(params[:id])
       end
 
-      def add_ingredient_recipe_params(params)
+      def add_ingredient_params(params)
         params[:sections_attributes].each do |section|
           section[:recipe_ingredients_attributes].each do |ingredient|
             ingredient_record = Ingredient.find_or_create_by_fdc_id(ingredient[:fdc_id], ingredient[:name])
