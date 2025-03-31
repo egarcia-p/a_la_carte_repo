@@ -86,6 +86,7 @@ test:
 #
 production:
   <<: *default
-  database: a_la_carte_react_production
-  username: a_la_carte_react
-  password: <%= ENV['A_LA_CARTE_REACT_DATABASE_PASSWORD'] %>
+  adapter: libsql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['TURSO_DATABASE_URL'] %>
+  auth_token: <%= ENV['TURSO_AUTH_TOKEN'] %>
