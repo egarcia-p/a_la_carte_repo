@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
-require 'dotenv'
-Dotenv.load
+# Conditionally load dotenv only in development and test environments
+# This ensures that the dotenv gem is not loaded in production, where
+if ENV['RAILS_ENV'] == 'development' || ENV['RAILS_ENV'] == 'test'
+  require 'dotenv'
+  Dotenv.load
+end
+
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
