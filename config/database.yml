@@ -86,14 +86,4 @@ test:
 #
 production:
   <<: *default
-  database: a_la_carte_development
-
-remote:
-  adapter: postgresql
-  host: dpg-cvms45i4d50c73eckbog-a.oregon-postgres.render.com
   database: a_la_carte_production
-  username: a_la_carte_user
-  password: bnm6YvdxjdZc2em6yCb7YprfAGJ6E11g
-  pool: 5
-  timeout: 5000
-  locale: en_US.UTF8
