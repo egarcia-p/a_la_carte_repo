@@ -10,36 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_24_214117) do
-
+ActiveRecord::Schema[8.0].define(version: 2025_03_24_214117) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name", limit: 100, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cookbooks", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.integer "user_id", null: false
     t.boolean "is_favorite", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "equipment", force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.string "material", limit: 100
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name", limit: 100, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "fdc_id"
     t.text "description"
   end
@@ -50,8 +49,8 @@ ActiveRecord::Schema.define(version: 2025_03_24_214117) do
     t.float "quantity", null: false
     t.integer "uom_id"
     t.integer "section_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -59,15 +58,15 @@ ActiveRecord::Schema.define(version: 2025_03_24_214117) do
     t.float "quantity", null: false
     t.integer "uom_id", null: false
     t.integer "section_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "recipe_tags", id: false, force: :cascade do |t|
     t.integer "recipe_id", null: false
     t.integer "tag_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -78,8 +77,8 @@ ActiveRecord::Schema.define(version: 2025_03_24_214117) do
     t.string "author", limit: 255, null: false
     t.integer "category_id", null: false
     t.integer "subcategory_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "cookbook_id"
     t.integer "user_id"
     t.boolean "is_public", default: false
@@ -89,30 +88,30 @@ ActiveRecord::Schema.define(version: 2025_03_24_214117) do
     t.string "name", limit: 100, null: false
     t.integer "sort_number"
     t.integer "recipe_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "steps", force: :cascade do |t|
     t.text "description", null: false
     t.integer "step_number", null: false
     t.integer "section_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subcategories", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.integer "category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.string "color", limit: 20, default: "#FFFFFF", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "uoms", force: :cascade do |t|
@@ -120,15 +119,14 @@ ActiveRecord::Schema.define(version: 2025_03_24_214117) do
     t.string "base_unit", limit: 100, null: false
     t.string "system", limit: 10, null: false
     t.float "conversion"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "short_name", limit: 10
   end
 
   create_table "users", force: :cascade do |t|
     t.string "sub", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
 end
