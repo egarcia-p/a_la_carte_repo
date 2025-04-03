@@ -70,7 +70,7 @@ module Api
 
       def show
         if recipe
-          render 'show.json.jbuilder' # check jbuilder gem
+          render jbuilder: "api/v1/recipes/show.json.jbuilder"
         else
           render json: recipe.errors
         end

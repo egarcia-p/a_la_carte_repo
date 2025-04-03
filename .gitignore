@@ -39,3 +39,5 @@ yarn-debug.log*
 /config/application.yml
 workspace.code-workspace
 .env.development
+
+/config/credentials/production.key
