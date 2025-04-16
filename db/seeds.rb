@@ -103,7 +103,8 @@ Uom.create([
   { name: 'ounce', base_unit: 'ounce', system: 'imperial' },
   { name: 'pound', base_unit: 'ounce', system: 'imperial' },
   { name: 'teaspoon', base_unit: 'teaspoon', system: 'imperial' },
-  { name: 'tablespoon', base_unit: 'teaspoon', system: 'imperial' }
+  { name: 'tablespoon', base_unit: 'teaspoon', system: 'imperial' },
+  { name: 'piece', base_unit: 'piece', system: 'none'}
 ])
 
 kg = Uom.find_by(name: 'kilogram')
