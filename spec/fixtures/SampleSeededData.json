@@ -1,0 +1,388 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Dinner",
+      "created_at": "2025-03-27T00:34:54.475Z",
+      "updated_at": "2025-03-27T00:34:54.475Z"
+    },
+    {
+      "id": 2,
+      "name": "Snacks",
+      "created_at": "2025-03-27T00:34:54.506Z",
+      "updated_at": "2025-03-27T00:34:54.506Z"
+    },
+    {
+      "id": 3,
+      "name": "Main Dishes",
+      "created_at": "2025-03-27T00:34:54.529Z",
+      "updated_at": "2025-03-27T00:34:54.529Z"
+    },
+    {
+      "id": 4,
+      "name": "Side Dishes",
+      "created_at": "2025-03-27T00:34:54.559Z",
+      "updated_at": "2025-03-27T00:34:54.559Z"
+    },
+    {
+      "id": 5,
+      "name": "Breakfast",
+      "created_at": "2025-03-27T00:34:54.587Z",
+      "updated_at": "2025-03-27T00:34:54.587Z"
+    },
+    {
+      "id": 6,
+      "name": "Soups & Salads",
+      "created_at": "2025-03-27T00:34:54.612Z",
+      "updated_at": "2025-03-27T00:34:54.612Z"
+    },
+    {
+      "id": 7,
+      "name": "Salsas",
+      "created_at": "2025-03-27T00:34:54.647Z",
+      "updated_at": "2025-03-27T00:34:54.647Z"
+    }
+  ],
+  "subcategories": [
+    {
+      "id": 1,
+      "name": "Pasta Dishes",
+      "category_id": 1,
+      "created_at": "2025-03-27T00:34:54.486Z",
+      "updated_at": "2025-03-27T00:34:54.486Z"
+    },
+    {
+      "id": 2,
+      "name": "Casseroles",
+      "category_id": 1,
+      "created_at": "2025-03-27T00:34:54.492Z",
+      "updated_at": "2025-03-27T00:34:54.492Z"
+    },
+    {
+      "id": 3,
+      "name": "Stir-Fry",
+      "category_id": 1,
+      "created_at": "2025-03-27T00:34:54.496Z",
+      "updated_at": "2025-03-27T00:34:54.496Z"
+    },
+    {
+      "id": 4,
+      "name": "Grilled Dishes",
+      "category_id": 1,
+      "created_at": "2025-03-27T00:34:54.499Z",
+      "updated_at": "2025-03-27T00:34:54.499Z"
+    },
+    {
+      "id": 5,
+      "name": "One-Pot Meals",
+      "category_id": 1,
+      "created_at": "2025-03-27T00:34:54.503Z",
+      "updated_at": "2025-03-27T00:34:54.503Z"
+    },
+    {
+      "id": 6,
+      "name": "Healthy Snacks",
+      "category_id": 2,
+      "created_at": "2025-03-27T00:34:54.509Z",
+      "updated_at": "2025-03-27T00:34:54.509Z"
+    },
+    {
+      "id": 7,
+      "name": "Dips & Spreads",
+      "category_id": 2,
+      "created_at": "2025-03-27T00:34:54.513Z",
+      "updated_at": "2025-03-27T00:34:54.513Z"
+    },
+    {
+      "id": 8,
+      "name": "Party Snacks",
+      "category_id": 2,
+      "created_at": "2025-03-27T00:34:54.516Z",
+      "updated_at": "2025-03-27T00:34:54.516Z"
+    },
+    {
+      "id": 9,
+      "name": "Sweet Snacks",
+      "category_id": 2,
+      "created_at": "2025-03-27T00:34:54.520Z",
+      "updated_at": "2025-03-27T00:34:54.520Z"
+    },
+    {
+      "id": 10,
+      "name": "Savory Snacks",
+      "category_id": 2,
+      "created_at": "2025-03-27T00:34:54.524Z",
+      "updated_at": "2025-03-27T00:34:54.524Z"
+    },
+    {
+      "id": 11,
+      "name": "Beef",
+      "category_id": 3,
+      "created_at": "2025-03-27T00:34:54.533Z",
+      "updated_at": "2025-03-27T00:34:54.533Z"
+    },
+    {
+      "id": 12,
+      "name": "Poultry",
+      "category_id": 3,
+      "created_at": "2025-03-27T00:34:54.537Z",
+      "updated_at": "2025-03-27T00:34:54.537Z"
+    },
+    {
+      "id": 13,
+      "name": "Pork",
+      "category_id": 3,
+      "created_at": "2025-03-27T00:34:54.546Z",
+      "updated_at": "2025-03-27T00:34:54.546Z"
+    },
+    {
+      "id": 14,
+      "name": "Seafood",
+      "category_id": 3,
+      "created_at": "2025-03-27T00:34:54.550Z",
+      "updated_at": "2025-03-27T00:34:54.550Z"
+    },
+    {
+      "id": 15,
+      "name": "Vegetarian",
+      "category_id": 3,
+      "created_at": "2025-03-27T00:34:54.555Z",
+      "updated_at": "2025-03-27T00:34:54.555Z"
+    },
+    {
+      "id": 16,
+      "name": "Vegetables",
+      "category_id": 4,
+      "created_at": "2025-03-27T00:34:54.564Z",
+      "updated_at": "2025-03-27T00:34:54.564Z"
+    },
+    {
+      "id": 17,
+      "name": "Potatoes",
+      "category_id": 4,
+      "created_at": "2025-03-27T00:34:54.569Z",
+      "updated_at": "2025-03-27T00:34:54.569Z"
+    },
+    {
+      "id": 18,
+      "name": "Rice",
+      "category_id": 4,
+      "created_at": "2025-03-27T00:34:54.575Z",
+      "updated_at": "2025-03-27T00:34:54.575Z"
+    },
+    {
+      "id": 19,
+      "name": "Pasta",
+      "category_id": 4,
+      "created_at": "2025-03-27T00:34:54.580Z",
+      "updated_at": "2025-03-27T00:34:54.580Z"
+    },
+    {
+      "id": 20,
+      "name": "Eggs",
+      "category_id": 5,
+      "created_at": "2025-03-27T00:34:54.592Z",
+      "updated_at": "2025-03-27T00:34:54.592Z"
+    },
+    {
+      "id": 21,
+      "name": "Pancakes & Waffles",
+      "category_id": 5,
+      "created_at": "2025-03-27T00:34:54.597Z",
+      "updated_at": "2025-03-27T00:34:54.597Z"
+    },
+    {
+      "id": 22,
+      "name": "Breakfast Meats",
+      "category_id": 5,
+      "created_at": "2025-03-27T00:34:54.602Z",
+      "updated_at": "2025-03-27T00:34:54.602Z"
+    },
+    {
+      "id": 23,
+      "name": "Cereals",
+      "category_id": 5,
+      "created_at": "2025-03-27T00:34:54.607Z",
+      "updated_at": "2025-03-27T00:34:54.607Z"
+    },
+    {
+      "id": 24,
+      "name": "Vegetable Soups",
+      "category_id": 6,
+      "created_at": "2025-03-27T00:34:54.620Z",
+      "updated_at": "2025-03-27T00:34:54.620Z"
+    },
+    {
+      "id": 25,
+      "name": "Meat Soups",
+      "category_id": 6,
+      "created_at": "2025-03-27T00:34:54.626Z",
+      "updated_at": "2025-03-27T00:34:54.626Z"
+    },
+    {
+      "id": 26,
+      "name": "Green Salads",
+      "category_id": 6,
+      "created_at": "2025-03-27T00:34:54.632Z",
+      "updated_at": "2025-03-27T00:34:54.632Z"
+    },
+    {
+      "id": 27,
+      "name": "Pasta Salads",
+      "category_id": 6,
+      "created_at": "2025-03-27T00:34:54.638Z",
+      "updated_at": "2025-03-27T00:34:54.638Z"
+    },
+    {
+      "id": 28,
+      "name": "Fresh Salsas",
+      "category_id": 7,
+      "created_at": "2025-03-27T00:34:54.651Z",
+      "updated_at": "2025-03-27T00:34:54.651Z"
+    },
+    {
+      "id": 29,
+      "name": "Cooked Salsas",
+      "category_id": 7,
+      "created_at": "2025-03-27T00:34:54.657Z",
+      "updated_at": "2025-03-27T00:34:54.657Z"
+    },
+    {
+      "id": 30,
+      "name": "Creamy Salsas",
+      "category_id": 7,
+      "created_at": "2025-03-27T00:34:54.662Z",
+      "updated_at": "2025-03-27T00:34:54.662Z"
+    },
+    {
+      "id": 31,
+      "name": "Hot Salsas",
+      "category_id": 7,
+      "created_at": "2025-03-27T00:34:54.668Z",
+      "updated_at": "2025-03-27T00:34:54.668Z"
+    }
+  ],
+  "cookbooks": [{ "id": 1, "title": "Reto Milene Abril 2024" }],
+  "uoms": [
+    {
+      "id": 1,
+      "name": "gram",
+      "base_unit": "gram",
+      "system": "metric",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.700Z",
+      "updated_at": "2025-03-27T00:34:54.700Z",
+      "short_name": null
+    },
+    {
+      "id": 2,
+      "name": "kilogram",
+      "base_unit": "gram",
+      "system": "metric",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.707Z",
+      "updated_at": "2025-03-27T00:34:54.707Z",
+      "short_name": null
+    },
+    {
+      "id": 3,
+      "name": "milligram",
+      "base_unit": "gram",
+      "system": "metric",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.714Z",
+      "updated_at": "2025-03-27T00:34:54.714Z",
+      "short_name": null
+    },
+    {
+      "id": 4,
+      "name": "microgram",
+      "base_unit": "gram",
+      "system": "metric",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.719Z",
+      "updated_at": "2025-03-27T00:34:54.719Z",
+      "short_name": null
+    },
+    {
+      "id": 5,
+      "name": "liter",
+      "base_unit": "liter",
+      "system": "metric",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.724Z",
+      "updated_at": "2025-03-27T00:34:54.724Z",
+      "short_name": null
+    },
+    {
+      "id": 6,
+      "name": "milliliter",
+      "base_unit": "liter",
+      "system": "metric",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.730Z",
+      "updated_at": "2025-03-27T00:34:54.730Z",
+      "short_name": null
+    },
+    {
+      "id": 7,
+      "name": "cup",
+      "base_unit": "cup",
+      "system": "imperial",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.737Z",
+      "updated_at": "2025-03-27T00:34:54.737Z",
+      "short_name": null
+    },
+    {
+      "id": 8,
+      "name": "ounce",
+      "base_unit": "ounce",
+      "system": "imperial",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.743Z",
+      "updated_at": "2025-03-27T00:34:54.743Z",
+      "short_name": null
+    },
+    {
+      "id": 9,
+      "name": "pound",
+      "base_unit": "ounce",
+      "system": "imperial",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.750Z",
+      "updated_at": "2025-03-27T00:34:54.750Z",
+      "short_name": null
+    },
+    {
+      "id": 10,
+      "name": "teaspoon",
+      "base_unit": "teaspoon",
+      "system": "imperial",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.758Z",
+      "updated_at": "2025-03-27T00:34:54.758Z",
+      "short_name": null
+    },
+    {
+      "id": 11,
+      "name": "tablespoon",
+      "base_unit": "teaspoon",
+      "system": "imperial",
+      "conversion": null,
+      "created_at": "2025-03-27T00:34:54.767Z",
+      "updated_at": "2025-03-27T00:34:54.767Z",
+      "short_name": null
+    }
+  ],
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "Peaches, yellow, raw",
+      "created_at": "2025-04-03T00:07:33.288Z",
+      "updated_at": "2025-04-03T00:07:33.288Z",
+      "fdc_id": 325430,
+      "description": "Peaches, yellow, raw"
+    }
+  ]
+}
