@@ -61,3 +61,4 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'figaro'
 gem 'rspec-rails'
+gem 'openssl', '~> 4.0'
