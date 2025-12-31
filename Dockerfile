@@ -25,8 +25,9 @@ COPY . .
 # Expose port 3300
 EXPOSE 3300
 
-ENTRYPOINT ["./entrypoint.sh"]
-RUN chmod +x ./entrypoint.sh
+# Entry
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 
 # Start the Rails server
