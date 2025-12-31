@@ -20,22 +20,30 @@ services:
   #   ports:
   #     - "3000:3000"
 
-  # backend:
-  #   image: "docker-spring-boot-asms:latest"
-  #   build:
-  #     context: backend
-  #   container_name: backend-spring
-  #   depends_on:
-  #     - db
-  #   env_file:
-  #     - ".env.development"
-  #   ports:
-  #     - "8080:8080"
-
-  db:
-    image: postgres
-    container_name: db
+  backend:
+    build:
+      context: .
+    container_name: backend-rails
+    depends_on:
+      - db-recipes
     env_file:
-      - ".env.development"
+      - ".env"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/tmp
+
+  db-recipes:
+    image: postgres:16
+    container_name: db-recipes
+    env_file:
+      - ".env"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+volumes:
+  pg_data:

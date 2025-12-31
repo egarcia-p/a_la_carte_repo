@@ -86,4 +86,4 @@ test:
 #
 production:
   <<: *default
-  database: a_la_carte_production
+  #: a_la_carte_production
