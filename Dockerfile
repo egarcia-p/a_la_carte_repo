@@ -26,6 +26,8 @@ COPY . .
 EXPOSE 3300
 
 ENTRYPOINT ["./entrypoint.sh"]
+RUN chmod +x ./entrypoint.sh
+
 
 # Start the Rails server
 CMD ["rails", "server", "-b", "0.0.0.0"]
