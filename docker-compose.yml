@@ -34,6 +34,8 @@ services:
       - .:/app
       - /app/node_modules
       - /app/tmp
+    networks:
+      - default
 
   db-recipes:
     image: postgres:16
@@ -44,6 +46,8 @@ services:
       - pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - default
 
 volumes:
   pg_data:
