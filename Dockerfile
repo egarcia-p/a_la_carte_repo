@@ -22,8 +22,10 @@ RUN bundle install
 # Copy the rest of the application
 COPY . .
 
-# Expose port 3000
+# Expose port 3300
 EXPOSE 3300
+
+ENTRYPOINT ["./entrypoint.sh"]
 
 # Start the Rails server
 CMD ["rails", "server", "-b", "0.0.0.0"]
