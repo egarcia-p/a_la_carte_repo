@@ -118,7 +118,7 @@ module Api
       def add_ingredient_params(params)
         params[:sections_attributes].each do |section|
           section[:recipe_ingredients_attributes].each do |ingredient|
-            ingredient_record = Ingredient.find_or_create_by_fdc_id(ingredient[:fdc_id], ingredient[:name])
+            ingredient_record = Ingredient.find_or_create_by_name(ingredient[:name])
 
             ingredient[:ingredient_id] = ingredient_record.id
             ingredient.delete(:fdc_id)

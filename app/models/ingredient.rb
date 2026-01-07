@@ -6,14 +6,11 @@ class Ingredient < ApplicationRecord
 
   validates :name, presence: true,
                    length: { maximum: 100 }
-  validates :fdc_id, uniqueness: true, allow_nil: true
-
-
-  def self.find_or_create_by_fdc_id(fdc_id, name)
-    ingredient = Ingredient.find_by(fdc_id: fdc_id)
+  def self.find_or_create_by_name(name)
+    ingredient = Ingredient.find_by(name: name)
     return ingredient if ingredient
 
-    ingredient = Ingredient.new(fdc_id: fdc_id, name: name, description: name)
+    ingredient = Ingredient.new(name: name)
     ingredient.save
     ingredient
   end
