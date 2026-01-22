@@ -12,8 +12,7 @@ p 'Seeding database'
 
 # Warning - this will delete all records in the database
 p 'Warning - this will delete all records in the database'
-p 'Press enter to continue'
-gets
+# gets removed for non-interactive execution
 
 # Seed Categories and Subcategories
 puts 'Creating categories and subcategories...'
@@ -139,3 +138,30 @@ kg = Uom.find_by(name: 'kilogram')
   # p section.errors.full_messages
   # section.save
 end
+
+# Import Ingredients from CSV
+require 'csv'
+
+puts "Starting ingredient import..."
+csv_file = Rails.root.join('db', 'ingredients-with-possible-units.csv')
+if File.exist?(csv_file)
+  puts "Importing ingredients from #{csv_file}..."
+  
+  # Read CSV with semi-colon separator
+  CSV.foreach(csv_file, col_sep: ';', skip_blanks: true) do |row|
+    next if row[0].blank?
+    
+    name = row[0]
+    possible_units = row[2]
+    
+    # Update or create ingredient
+    # We use find_or_initialize_by to avoid duplicates and update existing records
+    ingredient = Ingredient.find_or_initialize_by(name: name)
+    ingredient.suggested_uoms = possible_units
+    ingredient.save!
+  end
+  puts "Imported ingredients. Total count: #{Ingredient.count}"
+else
+  puts "CSV file not found: #{csv_file}"
+end
+

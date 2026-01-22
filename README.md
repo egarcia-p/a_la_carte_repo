@@ -38,9 +38,11 @@ Try to create the db if not created already:
 
 Then Migrate:
 `rake db:migrate`
+`docker-compose exec backend rails db:migrate`
 
 Finally seed the DB with the following command:
 `rake db:seed`
+`docker-compose exec backend rails db:seed`
 
 # Run Development Environment
 
